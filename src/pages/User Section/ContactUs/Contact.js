@@ -31,17 +31,17 @@ const Contact = () => {
             const response = await axios.delete(`http://147.79.101.225:8888/admin/contact/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-    
+
             setMessages(messages.filter((msg) => msg._id !== id));
-    
+
             setSnackbarMessage(response.data.Message);
             setOpenSnackbar(true);
         } catch (error) {
             console.log(error);
         }
     };
-    
-console.log(messages)
+
+    console.log(messages)
     return (
         <div className="contact-container">
             <h1 className="contact-title">صفحة تواصل معنا</h1>
@@ -65,8 +65,8 @@ console.log(messages)
                                             <Link to={`${msg._id}`} className="message-link">
                                                 <h5>{msg.UserId.name}</h5>
                                             </Link>
-                                            <p className="message-date">{msg.Date || "تاريخ غير معروف"}</p>
                                         </div>
+                                        <p className="message-date">{msg.Date || "تاريخ غير معروف"}</p>
                                         <div className="icons">
                                             {msg.viewed ? (
                                                 <Visibility className="icon viewed-icon" />
