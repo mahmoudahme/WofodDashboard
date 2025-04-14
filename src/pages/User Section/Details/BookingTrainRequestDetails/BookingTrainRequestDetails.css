@@ -1,0 +1,97 @@
+/* جعل المحتوى من اليمين إلى اليسار */
+.request-container {
+    direction: rtl;
+    text-align: right;
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    color: #333;
+}
+
+.request-details {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.request-image {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+/* جعل النصوص تبدأ من اليمين */
+p {
+    font-size: 16px;
+    margin: 5px 0;
+    text-align: right;
+}
+
+.extra-data {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.extra-data h2 {
+    margin-bottom: 10px;
+    color: #555;
+    text-align: right;
+}
+
+/* محاذاة النصوص للعناصر القابلة للتعديل */
+label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    text-align: right;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: right;
+    direction: rtl;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* تحسين عرض النصوص */
+.loading-text {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.error-text {
+    text-align: center;
+    font-size: 18px;
+    color: red;
+}

@@ -1,0 +1,37 @@
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.grid{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.grid2{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+
+.grid3{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+
+.grid4{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}

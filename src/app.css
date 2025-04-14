@@ -1,0 +1,36 @@
+/* الوضع الافتراضي (Light Mode) */
+.App2 {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  /* الوضع الداكن (Dark Mode) */
+  .App2.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  /* تخصيص الأزرار أو العناصر الأخرى */
+  button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* تخصيص التنسيقات الإضافية للـ Dark Mode */
+  .dark-mode button {
+    background-color: #444444;
+    color: #ffffff;
+  }
+  
+  .dark-mode button:hover {
+    background-color: #333333;
+  }
+  

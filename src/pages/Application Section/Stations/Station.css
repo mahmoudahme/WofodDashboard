@@ -1,0 +1,75 @@
+.airport-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.airport-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.airport-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.airport-card:hover {
+    transform: scale(1.02);
+}
+
+.airport-info {
+    font-size: 16px;
+}
+
+.delete-icon {
+    color: red;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.delete-icon:hover {
+    color: darkred;
+}
+
+.airport-form {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px; /* مساحة padding لزيادة المسافة داخل الـ form */
+    border: 1px solid #ccc; /* لون الحد للـ form */
+    border-radius: 8px; /* لتدوير الزوايا */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* تأثير الظل */
+    background-color: #fff; /* خلفية الـ form */
+}
+
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    /* background: #D4AF37; */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}

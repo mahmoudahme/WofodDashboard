@@ -1,0 +1,79 @@
+.memberDetailsPage {
+    color: #2C3E50;
+    text-shadow: 2px 1px 0px #D4AF37;
+    text-align: center;
+    margin-bottom: 50px;
+    direction: rtl;
+  }
+  .formForcustomer {
+      border-radius: 30px;
+      margin-top: 20px;
+      /* background-color: #f9f9f9; */
+      direction: rtl;
+  
+    }
+    .formForcustomer .div{
+        width: 100%;
+        align-items: center;
+        display: flex;
+        direction: rtl;
+  
+    
+    }
+    .formForcustomer .labelFormember {
+      display: flex;
+      font-weight: bold;
+     width: 120px;
+    }
+    
+    .formForcustomer .inputFormember2 {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      border-radius: 20px;
+    
+    }
+    .formForcustomer .inputFormember2:focus {
+      box-shadow: 0 0 5px #ffc400;
+      border: none
+    }
+    
+    .formForcustomer .textArea2 {
+      width: 100%;  /* اجعل المساحة الكاملة للـtextarea */
+      min-height: 100px;
+    }
+    
+    .formForcustomer .button {
+      width: 100%;  /* اجعل الزر يغطي العرض بالكامل */
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .formForcustomer .button:hover {
+      background-color: #45a049;
+    }
+    .formForcustomer .buttonForm{
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    #button{
+        background-color: #bb1f1f;
+        
+    }
+    #button:hover{
+        background-color: #921a1a;
+        
+    }
+    

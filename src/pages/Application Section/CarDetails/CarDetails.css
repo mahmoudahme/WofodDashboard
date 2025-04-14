@@ -1,0 +1,73 @@
+.service-details-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    direction: rtl;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    text-align: right;
+    width: 100%;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    height: 20;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+.service-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    margin: 10px auto;
+    display: block;
+    border: 1px solid #ddd;
+}
+
+input[type="file"] {
+    border: none;
+    background: none;
+}
+
+button {
+    background: #007bff;
+    color: #fff;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}

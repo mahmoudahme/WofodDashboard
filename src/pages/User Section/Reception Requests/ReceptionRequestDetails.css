@@ -1,0 +1,99 @@
+.requests-container {
+    text-align: center;
+    margin: 20px;
+    direction: rtl;
+  }
+  
+  .requests-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .request-card {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: right;
+    padding: 15px;
+    transition: transform 0.2s;
+  }
+  
+  .request-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .request-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .request-details {
+    padding: 10px;
+    text-align: right;
+  }
+  
+  .request-details h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .request-details p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .status {
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .status.pending {
+    background: #fbc02d;
+    color: #fff;
+  }
+  
+  .status.active {
+    background: #4caf50;
+    color: #fff;
+  }
+  .status.ended {
+    background: red;
+    color: #fff;
+  }
+  
+  .delete-button {
+    text-align: center;
+    width: 30px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 0px;
+    right: 5px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .delete-button:hover {
+    background-color: darkred;
+  }
+  
+  .request-card {
+    position: relative; /* لضمان ظهور زر الحذف بشكل صحيح */
+  }
+  
