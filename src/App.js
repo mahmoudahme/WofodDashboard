@@ -78,7 +78,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   return children;
 };
 
-
+//Mahmoud Ahmed Saeed 
 const dashboardRoutes = [
   { path: "/", element: <Dashboard />, allowedRoles: ["super_admin", "application", "user_Requests"] },
   { path: "/admins", element: <Admin />, allowedRoles: ["super_admin"] },
