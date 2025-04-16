@@ -6,6 +6,8 @@ import "./BookingTravelRequestDetails.css"; // ملف CSS للتنسيق
 const BookingTravelRequestDetails = () => {
     const [request, setRequest] = useState(null);
     const [extraData, setExtraData] = useState({
+        nextRequest: "",
+        nextRequestModel: "",
         memberId: "",
         status: "",
     });
@@ -43,10 +45,36 @@ const BookingTravelRequestDetails = () => {
         fetchData();
     }, [requestId]);
 
+    const serviceEnumMap = {
+        "حجز الفنادق": "BookingHotels",
+        "حجز القطارات": "BookingTrain",
+        "حجز الطيران": "BookingTravel",
+        "انهاء اجراءات السفر": "CompleteTravelProcedures",
+        "الاستقبال": "ReceptionRequests",
+        "وسائل نقل": "Transport",
+        "مرافقة الوفود": "Accompanying"
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setExtraData((prev) => ({ ...prev, [name]: value }));
-    };
+
+        if (name === "nextRequest") {
+            setExtraData((prev) => {
+                const selectedReq = requestsList.find((r) => r.id === value);
+                const nextRequestModel = selectedReq
+                    ? serviceEnumMap[selectedReq.service.nameAr] || ""
+                    : "";
+
+                return {
+                    ...prev,
+                    nextRequest: value,
+                    nextRequestModel,
+                };
+            });
+        } else {
+            setExtraData((prev) => ({ ...prev, [name]: value }));
+        }
+    }
 
     const handleSave = async () => {
         const updatedFields = {};
@@ -57,6 +85,14 @@ const BookingTravelRequestDetails = () => {
 
         if (extraData.status && extraData.status !== request.status) {
             updatedFields.status = extraData.status;
+        }
+
+        if (
+            extraData.nextRequest &&
+            extraData.nextRequest !== request.nextRequest
+        ) {
+            updatedFields.nextRequest = extraData.nextRequest;
+            updatedFields.nextRequestModel = extraData.nextRequestModel;
         }
 
         if (Object.keys(updatedFields).length === 0) {
@@ -128,7 +164,19 @@ const BookingTravelRequestDetails = () => {
                             </option>
                         ))}
                 </select>
-
+                {requestsList.length > 0 && (
+                    <div className="next-request-container">
+                        <label>اختيار الطلب القادم:</label>
+                        <select name="nextRequest" value={extraData.nextRequest} onChange={handleChange}>
+                            <option value={request.nextRequest ? `${request.nextRequest}` : ""} >{request.nextRequest ? `${request.nextRequest}` : ""}</option>
+                            {requestsList.map((req) => (
+                                <option key={req.id} value={req.id}>
+                                    {req.service?.nameAr}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
                 <label>تعديل حالة الطلب</label>
                 <select name="status" value={extraData.status} onChange={handleChange}>
                     <option value={request.status}>
