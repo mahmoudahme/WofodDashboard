@@ -86,12 +86,12 @@ const TransportRequestDetails = () => {
             updatedFields.status = extraData.status;
         }
 
-        if (
-            extraData.nextRequest &&
-            extraData.nextRequest !== request.nextRequest
-        ) {
+        if (extraData.nextRequest && extraData.nextRequest !== request.nextRequest) {
             updatedFields.nextRequest = extraData.nextRequest;
             updatedFields.nextRequestModel = extraData.nextRequestModel;
+        } else if (!extraData.nextRequest) {
+            updatedFields.nextRequest = null;
+            updatedFields.nextRequestModel = null;
         }
 
         if (Object.keys(updatedFields).length === 0) {
@@ -125,6 +125,7 @@ const TransportRequestDetails = () => {
 
     if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
+    console.log(extraData)
     return (
         <div className="request-container">
             <h1 className="title">تفاصيل طلب النقل</h1>

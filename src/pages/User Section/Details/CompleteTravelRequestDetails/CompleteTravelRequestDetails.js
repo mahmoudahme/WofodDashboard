@@ -86,13 +86,14 @@ const CompleteTravelRequestDetails = () => {
             updatedFields.status = extraData.status;
         }
 
-        if (
-            extraData.nextRequest &&
-            extraData.nextRequest !== request.nextRequest
-        ) {
+        if (extraData.nextRequest && extraData.nextRequest !== request.nextRequest) {
             updatedFields.nextRequest = extraData.nextRequest;
             updatedFields.nextRequestModel = extraData.nextRequestModel;
+        } else if (!extraData.nextRequest) {
+            updatedFields.nextRequest = null;
+            updatedFields.nextRequestModel = null;
         }
+        
 
         if (Object.keys(updatedFields).length === 0) {
             alert("لم يتم تعديل أي بيانات");
@@ -122,7 +123,7 @@ const CompleteTravelRequestDetails = () => {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
-
+    console.log(extraData)
     if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
     return (
