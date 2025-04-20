@@ -1,0 +1,5 @@
+/* MapComponent.css */
+.leaflet-map {
+  width: 100%;
+  height: 1000px;
+}
