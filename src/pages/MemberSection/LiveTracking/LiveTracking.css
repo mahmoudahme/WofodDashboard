@@ -1,0 +1,12 @@
+#map {
+    height: 100%; /* تأكد من أن الخريطة تملأ الحاوية */
+    width: 100%;
+    border: 2px solid #000; /* يمكنك تعديل الحدود حسب الرغبة */
+  }
+  
+  h2 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  

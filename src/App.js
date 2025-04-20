@@ -27,6 +27,7 @@ import TypeOfWork from "./pages/Application Section/TypeOfWork/TypeOfWork";
 import TypeOfWorkDetails from "./pages/Application Section/TypeOfWorkDetails/TypeOfWorkDetails";
 import PlaneClass from "./pages/Application Section/Class/PlaneClass";
 import Request from "./pages/User Section/Requests/Request";
+import LiveTracking from "./pages/MemberSection/LiveTracking/LiveTracking";
 
 import ReceptionRequestDetails from "./pages/User Section/Reception Requests/ReceptionRequestDetails";
 import ReceptionRequestOneDetails from "./pages/User Section/Details/ReceptionRequestDetails/ReceptionRequestDetails";
@@ -148,6 +149,7 @@ const dashboardRoutes = [
   { path: "/contact/:id", element: <ContactUsDetails />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
   { path: "/applications", element: <Applications />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
   { path: "/training", element: <TrainingApplication />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
+  { path: "/tracking/:id", element: <LiveTracking />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
 
   
 ];
