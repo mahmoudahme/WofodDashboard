@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./CompleteTravelRequestDetails.css"; // ملف CSS للتنسيق
 
 const CompleteTravelRequestDetails = () => {
@@ -144,6 +144,7 @@ const CompleteTravelRequestDetails = () => {
                     <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
                     <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
                     <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
+                    <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                 </div>
             )}
             <div className="extra-data">

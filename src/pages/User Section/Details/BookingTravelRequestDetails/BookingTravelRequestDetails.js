@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./BookingTravelRequestDetails.css"; // ملف CSS للتنسيق
 
 const BookingTravelRequestDetails = () => {
@@ -146,6 +146,7 @@ const BookingTravelRequestDetails = () => {
                     <p><strong>درجة السفر:</strong> {request.className.nameAr}</p>
                     <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
                     <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
+                    <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                 </div>
             )}
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./TransportRequestDetails.css"; // ملف CSS للتنسيق
 
 const TransportRequestDetails = () => {
@@ -142,6 +142,7 @@ const TransportRequestDetails = () => {
                 <p><strong>المستخدم:</strong> {request.userId?.name} ({request.userId?.phone})</p>
                 <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                 <p><strong>التاريخ:</strong> {new Date(request.createdAt).toLocaleDateString()}</p>
+                <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
             </div>
 
             {/* إضافة قائمة منسدلة لتحديث البيانات */}

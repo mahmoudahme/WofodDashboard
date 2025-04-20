@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./AccompanyingRequestDetails.css";
 
 const AccompanyingRequestDetails = () => {
@@ -148,6 +148,7 @@ const AccompanyingRequestDetails = () => {
                                 "غير معروف"
                 }</p>
                 <p><strong>التاريخ:</strong> {new Date(request.createdAt).toLocaleDateString()}</p>
+                <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
             </div>
 
             {/* إضافة قائمة منسدلة لتحديث البيانات */}
