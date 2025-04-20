@@ -30,7 +30,7 @@ const MapComponent = () => {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://147.79.101.225:8888/admin/location/6800d1640d9d0f8d5e358729`);
+        const res = await axios.get(`http://147.79.101.225:8888/admin/location/${requestId}`);
         const data = res.data.locations.location;
         if (!Array.isArray(data) || data.length === 0) return;
 
