@@ -63,6 +63,7 @@ import Contact from "./pages/User Section/ContactUs/Contact";
 import ContactUsDetails from "./pages/User Section/ContactUsDetails/ContacatUsDetails";
 import Applications from "./pages/MemberSection/Job Applications/Applications";
 import TrainingApplication from "./pages/MemberSection/Training Application/TrainingApplication";
+import Chat from "./pages/MemberSection/Chat/Chat"
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const token = localStorage.getItem("accessToken");
@@ -150,6 +151,7 @@ const dashboardRoutes = [
   { path: "/applications", element: <Applications />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
   { path: "/training", element: <TrainingApplication />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
   { path: "/tracking/:id", element: <LiveTracking />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
+  { path: "/chat/:id", element: <Chat />, allowedRoles:  ["super_admin", "application", "user_Requests"] },
 
   
 ];

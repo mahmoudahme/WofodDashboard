@@ -76,6 +76,7 @@ const Members = () => {
         <table className="fl-table">
           <thead>
             <tr>
+              <th>الدردشه</th>
               <th>رمز تعريفي</th>
               <th>الاسم</th>
               <th>الوظيفه</th>
@@ -87,6 +88,9 @@ const Members = () => {
           <tbody>
             {members.map((member) => (
               <tr key={member._id}>
+                <td>
+                  <Link to={`/dashboard/chat/${member._id}`} className="chat-link">Chat</Link>
+                </td>
                 <td>
                   <Link to={`${member._id}`}>{member._id}</Link>
                 </td>
