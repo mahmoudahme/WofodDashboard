@@ -16,6 +16,12 @@ const Chat = () => {
     const bottomRef = useRef(null);
 
     useEffect(() => {
+        const roomIdPayload = {
+            senderId: memberId,
+            receiverId: SUPER_ADMIN_ID,
+        };
+    
+        socket.emit("joinChat", roomIdPayload)
         const fetchChat = async () => {
             try {
                 const res = await axios.get(
