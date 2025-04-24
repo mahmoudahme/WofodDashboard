@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Members.css"
+import { FiMessageCircle } from 'react-icons/fi'; // حطها فوق في الاستيرادات
 const Members = () => {
   const [members, setMembers] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -27,7 +28,7 @@ const Members = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setJobs(response2.data.jobs);
-        
+
       } catch (error) {
         console.error(error.message);
       }
@@ -39,19 +40,19 @@ const Members = () => {
     const { name, value } = evt.target;
     setState({
       ...state,
-      [name]: value, 
+      [name]: value,
     });
   };
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const response = await axios.post("http://147.79.101.225:8888/member/auth/create", state,{
-       headers: { 
+      const response = await axios.post("http://147.79.101.225:8888/member/auth/create", state, {
+        headers: {
           Authorization: `Bearer ${token}`,
-         "Content-Type": "application/json" 
-        } 
-     });
+          "Content-Type": "application/json"
+        }
+      });
       if (response.status === 200) {
         setMessage(response.data.Message);
         setTimeout(() => {
@@ -89,7 +90,9 @@ const Members = () => {
             {members.map((member) => (
               <tr key={member._id}>
                 <td>
-                  <Link to={`/dashboard/chat/${member._id}`} className="chat-link">Chat</Link>
+                  <Link to={`/dashboard/chat/${member._id}`} className="chat-link">
+                    <FiMessageCircle size={20} color="black" />
+                  </Link>
                 </td>
                 <td>
                   <Link to={`${member._id}`}>{member._id}</Link>
