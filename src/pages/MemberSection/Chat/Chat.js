@@ -20,7 +20,7 @@ const Chat = () => {
             senderId: memberId,
             receiverId: SUPER_ADMIN_ID,
         };
-    
+
         socket.emit("joinChat", roomIdPayload)
         const fetchChat = async () => {
             try {
@@ -65,7 +65,7 @@ const Chat = () => {
 
 
 
-    const handleSend = async() => {
+    const handleSend = async () => {
         if (!newMsg.trim()) return;
 
         const messageData = {
@@ -75,8 +75,8 @@ const Chat = () => {
         };
 
         socket.emit("sendMessage", messageData);
-        
-        await axios.post("http://147.79.101.225:8888/admin/send-message", { memberId: memberId , messageFromAdmin : messageData.message},
+
+        await axios.post("http://147.79.101.225:8888/admin/send-message", { memberId: memberId, messageFromAdmin: messageData.message },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -112,6 +112,11 @@ const Chat = () => {
                         type="text"
                         value={newMsg}
                         onChange={(e) => setNewMsg(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSend();
+                            }
+                        }}
                         placeholder="اكتب الرسالة..."
                     />
                 </div>
