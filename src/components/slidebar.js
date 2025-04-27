@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaUserTie , FaDashcube, FaUserShield , FaServicestack, FaFly , FaCar ,FaPlane , FaRoad, FaCity, FaMandalorian, FaNetworkWired, FaRegUserCircle, FaHotel, FaTrain, FaRestroom, FaChartArea, FaJoomla} from "react-icons/fa";
+import { FaUserTie , FaDashcube, FaUserShield , FaServicestack, FaFly , FaCar ,FaPlane , FaRoad, FaCity, FaMandalorian, FaNetworkWired, FaRegUserCircle, FaHotel, FaTrain, FaRestroom, FaChartArea, FaJoomla , FaMoneyBill } from "react-icons/fa";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -84,6 +84,7 @@ const Sidebar = () => {
       { to: "/dashboard/members", label: "اعضاء وفود", icon: <FaUserShield /> },
       { to: "/dashboard/applications", label: "طلبات التوظيف", icon: <FaJoomla /> },
       { to: "/dashboard/training", label: "طلبات التدريب", icon: <FaJoomla /> },
+      { to: "/dashboard/bill", label: "فواتير الاعضاء", icon: <FaMoneyBill /> },
 
 
     ] : []),
