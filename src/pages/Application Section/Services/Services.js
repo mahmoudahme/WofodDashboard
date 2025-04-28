@@ -93,7 +93,6 @@ const Services = () => {
                 <div className="services-list">
                     {services.map((service) => (
                         <div className="service-card" key={service._id}>
-                            <p>{service._id}</p>
                             <img src={`http://147.79.101.225:8888/uploads/Services/${service.image}`} alt={service.nameEn} className="service-image" />
                             <Link to={`${service._id}`}><h2>{service.nameAr} - {service.nameEn}</h2></Link>
                             <p>{service.descriptionAr}</p>

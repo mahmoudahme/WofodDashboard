@@ -92,8 +92,6 @@ const Cars = () => {
                 <div className="cars-list">
                     {cars.map((car) => (
                         <div className="cars-card" key={car._id}>
-                            <p>{car._id}</p>
-
                             <img src={`http://147.79.101.225:8888/uploads/Cars/${car.image}`} alt={car.nameEn} className="cars-image" />
                             <Link to={`${car._id}`}><h2>{car.nameAr} - {car.nameEn}</h2></Link>
                             <p>ريال {car.price} </p>

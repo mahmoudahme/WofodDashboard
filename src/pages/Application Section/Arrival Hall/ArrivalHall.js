@@ -73,7 +73,7 @@ const ArrivalHall = () => {
             <div className="airport-list">
                 {arrivalhalls.map((arrivalHall) => (
                     <div key={arrivalHall._id} className="airport-card">
-                        <p>{arrivalHall._id}</p>
+
                         <div className="airport-info">
                             <strong><Link to={`${arrivalHall._id}`}>{arrivalHall.nameAr}</Link></strong> - {arrivalHall.nameEn}
                         </div>

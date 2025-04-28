@@ -74,7 +74,6 @@ const AirPort = () => {
                 {airports.map((airport) => (
                    
                     <div key={airport._id} className="airport-card">
-                         <p>{airport._id}</p>
                         <div className="airport-info">
                             <strong><Link to={`${airport._id}`}>{airport.nameAr}</Link></strong> - {airport.nameEn}
                         </div>
