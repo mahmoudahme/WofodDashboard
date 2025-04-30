@@ -90,9 +90,9 @@ const Members = () => {
             {members.map((member) => (
               <tr key={member._id}>
                 <td>
-                  <Link to={`/dashboard/chat/${member._id}`} className="chat-link">
-                    <FiMessageCircle size={20} color="black" />
-                  </Link>
+                  {member.deviceIP == "" ? "" : <Link to={`/dashboard/chat/${member._id}`} className="chat-link">
+                      <FiMessageCircle size={20} color="black" />
+                    </Link>}
                 </td>
                 <td>
                   <Link to={`${member._id}`}>{member._id}</Link>
