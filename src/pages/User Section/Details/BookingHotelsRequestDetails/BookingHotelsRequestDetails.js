@@ -17,6 +17,7 @@ const BookingHotelsRequestDetails = () => {
     const [error, setError] = useState(null);
     const params = useParams();
     const token = window.localStorage.getItem("accessToken");
+    const [selectedRequest, setSelectedRequest] = useState([]);
 
     const requestId = params.id;
 
@@ -36,6 +37,12 @@ const BookingHotelsRequestDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/hotel`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
+                setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
                 setLoading(false);
@@ -135,6 +142,8 @@ const BookingHotelsRequestDetails = () => {
                 {request && (
                     <div className="request-details">
                         <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
+                        <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+
                         <p><strong>رقم الهاتف:</strong> {request.phone}</p>
                         <p><strong>الجنسية:</strong> {request.nationality}</p>
                         <p><strong>الفندق:</strong> {request.hotel?.nameAr || "غير متوفر"}</p>
@@ -144,6 +153,8 @@ const BookingHotelsRequestDetails = () => {
                         <p><strong>نوع الغرفه:</strong> {request.typeOfRoom.nameAr}</p>
                         <p><strong>عدد الليالي:</strong> {request.numOfNigths}</p>
                         <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
+                        <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
                         <p><strong>حالة الطلب:</strong> {request.status === "pending" ? "قيد الانتظار" : request.status}</p>
                         <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                     </div>
@@ -156,10 +167,13 @@ const BookingHotelsRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc47087fb0c49df85a6d83")
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc47087fb0c49df85a6d83" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
                 </select>

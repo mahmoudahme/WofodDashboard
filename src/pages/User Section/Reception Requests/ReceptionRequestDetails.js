@@ -63,6 +63,8 @@ const ReceptionRequestDetails = () => {
             
             <div className="request-details">
               <h3>{request.firstName} {request.familyName}</h3>
+              
+              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
               <p><strong>رقم الهاتف:</strong> {request.phone}</p>
               <p><strong>مدينة الوصول:</strong> {request.cityOfArrival.nameAr}</p>
               <p><strong>تاريخ الوصول:</strong> {request.arrivalDate}</p>
@@ -70,6 +72,7 @@ const ReceptionRequestDetails = () => {
               <p><strong>شركة الطيران:</strong> {request.airline.nameAr}</p>
               <p><strong>قاعة الوصول:</strong> {request.arrivalHall.nameAr}</p>
               <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
+              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
               <p className={`status ${request.status}`}>
               {
                     request.status === "pending" ? "قيد المراجعة" :

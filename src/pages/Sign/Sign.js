@@ -26,7 +26,7 @@ export default function Sign() {
             <div className="overlay-panel overlay-right">
               <img src={logo} style={{ width: "150px" }}></img>
               <h1 className="Hello" >مرحبا بعودتك ايها المسئول</h1>
-              <p>تابع عملائك و طلباتاتهم  و يمكنك التحكم في الطلبات الخاصه بالعملاء و يمكنك التحكم في الداتا الخاصه بالتطبيق</p>
+            <p style={{color : "white"}}>تابع عملائك و طلباتاتهم  و يمكنك التحكم في الطلبات الخاصه بالعملاء و يمكنك التحكم في الداتا الخاصه بالتطبيق</p>
             </div>
           </div>
         </div>

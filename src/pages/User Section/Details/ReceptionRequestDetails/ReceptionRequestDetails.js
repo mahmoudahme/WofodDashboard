@@ -6,8 +6,8 @@ import "./ReceptionRequestDetails.css"; // ملف CSS للتنسيق
 const ReceptionRequestDetails = () => {
     const [request, setRequest] = useState(null);
     const [extraData, setExtraData] = useState({
-        nextRequest : "",
-        nextRequestModel : "",
+        nextRequest: "",
+        nextRequestModel: "",
         memberId: "",
         status: "",
     });
@@ -17,6 +17,7 @@ const ReceptionRequestDetails = () => {
     const [error, setError] = useState(null);
     const params = useParams();
     const token = window.localStorage.getItem("accessToken");
+    const [selectedRequest, setSelectedRequest] = useState([]);
 
     const requestId = params.id;
 
@@ -37,6 +38,12 @@ const ReceptionRequestDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                setLoading(false);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/reception`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
                 setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
@@ -113,7 +120,7 @@ const ReceptionRequestDetails = () => {
                     },
                 }
             );
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId},
+            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -137,6 +144,8 @@ const ReceptionRequestDetails = () => {
                 {
                     request.image ? <img src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`} alt="طلب النقل" className="request-image" /> : ""
                 }
+                <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+
                 <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
                 <p><strong>الهاتف:</strong> {request.phone}</p>
                 <p><strong>مدينة الوصول:</strong> {request.cityOfArrival?.nameAr} ({request.cityOfArrival?.nameEn})</p>
@@ -150,6 +159,7 @@ const ReceptionRequestDetails = () => {
                 <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
                 <p><strong>الخدمة:</strong> {request.serviceId?.nameAr} ({request.serviceId?.nameEn})</p>
                 <p><strong>المستخدم:</strong> {request.userId?.name} ({request.userId?.phone})</p>
+                <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
                 <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                 <p><strong>تاريخ الإنشاء:</strong> {new Date(request.createdAt).toLocaleDateString()}</p>
                 <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
@@ -161,10 +171,13 @@ const ReceptionRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc43e6670738caae5f79c9") 
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc43e6670738caae5f79c9" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
                 </select>

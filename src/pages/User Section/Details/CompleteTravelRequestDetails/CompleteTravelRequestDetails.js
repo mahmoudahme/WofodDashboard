@@ -17,6 +17,7 @@ const CompleteTravelRequestDetails = () => {
     const [error, setError] = useState(null);
     const params = useParams();
     const token = window.localStorage.getItem("accessToken");
+    const [selectedRequest, setSelectedRequest] = useState([]);
 
     const requestId = params.id;
 
@@ -35,6 +36,12 @@ const CompleteTravelRequestDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                setLoading(false);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/complete`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
                 setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
@@ -132,18 +139,20 @@ const CompleteTravelRequestDetails = () => {
             {request && (
                 <div className="request-details">
                     <img src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`} alt="طلب النقل" className="request-image" />
+                    <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                     <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
                     <p><strong>رقم الهاتف:</strong> {request.phone}</p>
                     <p><strong>الجنسية:</strong> {request.nationality}</p>
                     <p><strong>عدد الرحلات:</strong> {request.numOfTrip}</p>
                     <p><strong>رقم الهوية/جواز السفر:</strong> {request.IDOrPassportNumber}</p>
-                    <p><strong>تاريخ المغادرة:</strong> {request.leaveDate}</p>
-                    <p><strong>وقت المغادرة:</strong> {request.leaveTime}</p>
                     <p><strong>المطار:</strong> {request.airport?.nameAr}</p>
                     <p><strong>شركة الطيران:</strong> {request.airline?.nameAr}</p>
                     <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
                     <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
+                    <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
                     <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
+                    
                     <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                 </div>
             )}
@@ -153,10 +162,13 @@ const CompleteTravelRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc46047fb0c49df85a6d73") 
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc46047fb0c49df85a6d73" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
                 </select>

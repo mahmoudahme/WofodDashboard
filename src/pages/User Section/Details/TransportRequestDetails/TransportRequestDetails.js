@@ -17,6 +17,7 @@ const TransportRequestDetails = () => {
     const [error, setError] = useState(null);
     const params = useParams();
     const token = window.localStorage.getItem("accessToken");
+    const [selectedRequest, setSelectedRequest] = useState([]);
 
     const requestId = params.id;
 
@@ -35,6 +36,12 @@ const TransportRequestDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                setLoading(false);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/transport`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
                 setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
@@ -132,6 +139,7 @@ const TransportRequestDetails = () => {
 
             <div className="request-details">
                 <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
+                <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                 <p><strong>الهاتف:</strong> {request.phone}</p>
                 <p><strong>الجنسية:</strong> {request.nationality}</p>
                 <p><strong>المدينة:</strong> {request.city?.nameAr}</p>
@@ -152,10 +160,13 @@ const TransportRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc45cb7fb0c49df85a6d71")
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc45cb7fb0c49df85a6d71" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
                 </select>

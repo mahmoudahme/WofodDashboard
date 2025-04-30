@@ -17,6 +17,7 @@ const BookingTravelRequestDetails = () => {
     const [error, setError] = useState(null);
     const params = useParams();
     const token = window.localStorage.getItem("accessToken");
+    const [selectedRequest, setSelectedRequest] = useState([]);
 
     const requestId = params.id;
 
@@ -31,11 +32,17 @@ const BookingTravelRequestDetails = () => {
                 setRequest(response.data.request);
                 setRequestsList(response.data.AnotherRequests); // تخزين الطلبات في القائمة
                 setLoading(false);
-                
+
                 const response2 = await axios.get("http://147.79.101.225:8888/admin/users/members", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                setLoading(false);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/travel`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
                 setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
@@ -111,7 +118,7 @@ const BookingTravelRequestDetails = () => {
                     },
                 }
             );
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId},
+            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -126,29 +133,33 @@ const BookingTravelRequestDetails = () => {
 
     if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
-    console.log(requestsList)
     return (
         <div className="request-container">
             <h1 className="title">تفاصيل طلب المرافقه</h1>
 
             <div className="request-details">
-            {request && (
-                <div className="request-details">
-                    <p><strong>نوع السفر:</strong> {request.typeOfTravel}</p>
-                    <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
-                    <p><strong>رقم الهاتف:</strong> {request.phone}</p>
-                    <p><strong>الجنسية:</strong> {request.nationality}</p>
-                    <p><strong>رقم الهوية/جواز السفر:</strong> {request.IDOrPassportNumber}</p>
-                    <p><strong>المطار:</strong> {request.airport.nameAr}</p>
-                    <p><strong>الوجهة التالية:</strong> {request.country} - {request.city}</p>
-                    <p><strong>تاريخ المغادرة:</strong> {request.leaveDate}</p>
-                    <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
-                    <p><strong>درجة السفر:</strong> {request.className.nameAr}</p>
-                    <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
-                    <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
-                    <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
-                </div>
-            )}
+                {request && (
+                    <div className="request-details">
+                        
+                        <p><strong>نوع السفر:</strong> {request.typeOfTravel}</p>
+                        <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
+                        <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+
+                        <p><strong>رقم الهاتف:</strong> {request.phone}</p>
+                        <p><strong>الجنسية:</strong> {request.nationality}</p>
+                        <p><strong>رقم الهوية/جواز السفر:</strong> {request.IDOrPassportNumber}</p>
+                        <p><strong>المطار:</strong> {request.airport.nameAr}</p>
+                        <p><strong>الوجهة التالية:</strong> {request.country} - {request.city}</p>
+                        <p><strong>تاريخ المغادرة:</strong> {request.leaveDate}</p>
+                        <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
+                        <p><strong>درجة السفر:</strong> {request.className.nameAr}</p>
+                        <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
+                        <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
+                        <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
+                        <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
+                    </div>
+                )}
             </div>
 
             {/* إضافة قائمة منسدلة لتحديث البيانات */}
@@ -158,10 +169,13 @@ const BookingTravelRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc46b87fb0c49df85a6d7b") 
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc46b87fb0c49df85a6d7b" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
                 </select>

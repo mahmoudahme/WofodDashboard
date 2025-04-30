@@ -58,7 +58,10 @@ const BookingTravelRequests = () => {
             </button>
             <div className="request-details">
 
+
               <h2>{request.firstName} {request.familyName}</h2>
+              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+
               <p><strong>رقم الهاتف:</strong> {request.phone}</p>
               <p><strong>الجنسية:</strong> {request.nationality}</p>
               <p><strong>رقم الهوية / الجواز:</strong> {request.IDOrPassportNumber}</p>
@@ -74,6 +77,8 @@ const BookingTravelRequests = () => {
               <p><strong>الدرجة:</strong> {request.className.nameAr}</p>
               <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
               <p><strong>المستخدم:</strong> {request.userId.name} - {request.userId.phone}</p>
+              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
               <p className={`status ${request.status.toLowerCase()}`}>
                 {
                   request.status === "pending" ? "قيد المراجعة" :

@@ -13,7 +13,7 @@ const AccompanyingRequestDetails = () => {
     });
     const [requestsList, setRequestsList] = useState([]);
     const [membersList, setmembersList] = useState([]);
-
+    const [selectedRequest, setSelectedRequest] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const params = useParams();
@@ -36,6 +36,12 @@ const AccompanyingRequestDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
+                setLoading(false);
+                const response3 = await axios.get(
+                    `http://147.79.101.225:8888/admin/request/accompanying`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setSelectedRequest(response3.data.Requests);
                 setLoading(false);
             } catch (error) {
                 setError("حدث خطأ أثناء جلب البيانات");
@@ -135,12 +141,16 @@ const AccompanyingRequestDetails = () => {
 
             <div className="request-details">
                 <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
+                <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+
                 <p><strong>الهاتف:</strong> {request.phone}</p>
                 <p><strong>الجنسية:</strong> {request.nationality}</p>
                 <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
                 <p><strong>الخدمة:</strong> {request.serviceId?.nameAr}</p>
                 <p><strong>مرافق الخدمة:</strong> {request.accompany?.nameAr}</p>
                 <p><strong>المستخدم:</strong> {request.userId?.name} ({request.userId?.phone})</p>
+                <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
                 <p><strong>الحالة:</strong> {
                     request.status === "pending" ? "قيد المراجعة" :
                         request.status === "active" ? "نشط" :
@@ -158,12 +168,16 @@ const AccompanyingRequestDetails = () => {
                 <select name="memberId" value={extraData.memberId} onChange={handleChange}>
                     <option value={request.memberId ? `${request.memberId.name}` : ""} >{request.memberId ? `${request.memberId.name}` : ""}</option>
                     {membersList
-                        .filter((member) => member.serviceId === "67bc46667fb0c49df85a6d75")
-                        .map((req) => (
-                            <option key={req._id} value={req._id}>
-                                {req.name} - {req.typeOfUser.nameAr}
+                        .filter(member =>
+                            member.serviceId === "67bc46667fb0c49df85a6d75" &&
+                            !selectedRequest.some(req => req.memberId?._id === member._id && req.status === "active")
+                        )
+                        .map(memberer => (
+                            <option key={memberer._id} value={memberer._id}>
+                                {memberer.name} - {memberer.typeOfUser.nameAr}
                             </option>
                         ))}
+
                 </select>
                 {requestsList.length > 0 && (
                     <div className="next-request-container">

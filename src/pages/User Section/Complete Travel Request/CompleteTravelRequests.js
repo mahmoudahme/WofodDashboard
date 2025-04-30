@@ -50,17 +50,18 @@ const CompleteTravelRequests = () => {
             </button>
             <div className="request-details">
               <h2>{request.firstName} {request.familyName}</h2>
+              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
               <p><strong>رقم الهاتف:</strong> {request.phone}</p>
               <p><strong>الجنسية:</strong> {request.nationality}</p>
               <p><strong>عدد الرحلات:</strong> {request.numOfTrip}</p>
               <p><strong>رقم الهوية/الجواز:</strong> {request.IDOrPassportNumber}</p>
-              <p><strong>تاريخ المغادرة:</strong> {request.leaveDate}</p>
-              <p><strong>الوقت:</strong> {request.leaveTime}</p>
               <p><strong>المطار:</strong> {request.airport?.nameAr}</p>
               <p><strong>الخطوط الجوية:</strong> {request.airline?.nameAr}</p>
               <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
               <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
               <p><strong>المستخدم:</strong> {request.userId.name} - {request.userId.phone}</p>
+              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
               <p className={`status ${request.status.toLowerCase()}`}>
                 {
                   request.status === "pending" ? "قيد المراجعة" :

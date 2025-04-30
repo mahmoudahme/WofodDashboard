@@ -57,13 +57,18 @@ const TransportRequests = () => {
             </button>
             <div className="request-details">
               <h2>{request.firstName} {request.familyName}</h2>
+              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
               <p><strong>رقم الهاتف:</strong> {request.phone}</p>
               <p><strong>الجنسية:</strong> {request.nationality}</p>
               <p><strong>مدينة النقل:</strong> {request.city.nameAr}</p>
+              <p><strong> من :</strong> {request.from}</p>
+              <p><strong> الي :</strong> {request.to}</p>
               <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
               <p><strong>نوع السيارة:</strong> {request.carId.nameAr}</p>
               <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
               <p><strong>المستخدم:</strong> {request.userId.name} - {request.userId.phone}</p>
+              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
+
               <p className={`status ${request.status.toLowerCase()}`}>
                 {
                   request.status === "pending" ? "قيد المراجعة" :
