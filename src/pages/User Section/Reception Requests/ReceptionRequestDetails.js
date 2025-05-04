@@ -45,7 +45,7 @@ const ReceptionRequestDetails = () => {
 
   return (
     <div className="requests-container">
-      <h1 className="Requests_Page">جميع الطلبات</h1>
+      <h1 className="Requests_Page">طلبات استقبال</h1>
       <div className="requests-list">
         {requests.map((request) => (
           <div key={request._id} className="request-card">

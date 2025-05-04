@@ -41,7 +41,7 @@ const CompleteTravelRequests = () => {
   if (error) return <p>{error}</p>;
   return (
     <div className="requests-container">
-      <h1 className="Requests_Page">جميع الطلبات</h1>
+      <h1 className="Requests_Page">طلبات انهاء اجراءات السفر</h1>
       <div className="requests-list">
         {requests.map((request) => (
           <div key={request._id} className="request-card">
