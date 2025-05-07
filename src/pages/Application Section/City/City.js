@@ -69,7 +69,7 @@ const City = () => {
 
     return (
         <div className="airport-container">
-            <h2>قائمة المدينه</h2>
+            <h2>قائمة المدن</h2>
             <div className="airport-list">
                 {airlines.map((airline) => (
                     <div key={airline._id} className="airport-card">

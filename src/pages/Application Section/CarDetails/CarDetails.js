@@ -74,7 +74,7 @@ const CarDetails = () => {
         <div className="service-details-container">
             <ToastContainer />
             <h2>تعديل السياره</h2>
-            <img src={`http://147.79.101.225:8888/uploads/cars/${car.image}`} alt="Car" className="service-image" />
+            <img src={`http://147.79.101.225:8888/uploads/Cars/${car.image}`} alt="Car" className="service-image" />
             <form className="service-form" onSubmit={handleSubmit}>
                 <label>اسم السياره بالعربية</label>
                 <input type="text" name="nameAr" value={car.nameAr} onChange={handleChange} required />
