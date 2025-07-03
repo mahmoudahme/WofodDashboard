@@ -1,87 +1,302 @@
-/* body {
-    font-family: 'Arial', sans-serif;
-    background-color: #ECF0F1;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  
+/* تحسينات عامة للصفحة */
+.AdminPage {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+  direction: rtl;
 
-   */
-   .AdminPage {
-    color: #2C3E50;
-    text-shadow: 2px 1px 0px #D4AF37;
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  .table-wrapper {
+}
 
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: white;
-    padding: 20px;
+/* تحسينات للرسائل */
+.message {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* تحسينات للجدول */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.fl-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 14px;
+}
+
+.fl-table thead tr {
+  background: linear-gradient(135deg, #D4AF37 0%, #705600 100%);
+  color: white;
+  text-align: right;
+}
+
+.fl-table th,
+.fl-table td {
+  padding: 12px 15px;
+  text-align: right;
+  border-bottom: 1px solid #ddd;
+}
+
+.fl-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.fl-table tbody tr:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fl-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.fl-table tbody tr:nth-child(even):hover {
+  background-color: #e9ecef;
+}
+
+/* تحسينات للروابط */
+.chat-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.chat-link:hover {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.member-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.member-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.no-chat {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* تحسينات لحالة التسجيل */
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status.registered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.not-registered {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* حالة عدم وجود بيانات */
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* تحسينات للنموذج */
+.container2 {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contact {
+  width: 100%;
+}
+
+#contact h3 {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+#contact fieldset {
+  border: none;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+#contact input,
+#contact select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  direction: rtl;
+}
+
+#contact input:focus,
+#contact select:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#contact input::placeholder {
+  color: #6c757d;
+}
+
+#contact button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #D4AF37 0%, #705600 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #493d14 0%, #000000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#contact button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#contact button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* رسائل الأخطاء */
+.error-text {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* تحسينات للتحميل */
+.loading-container {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+/* تحسينات للأجهزة المحمولة */
+@media (max-width: 768px) {
+  .AdminPage {
+    font-size: 1.5rem;
   }
   
   .fl-table {
-    
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
+    font-size: 12px;
   }
   
-  .fl-table th, .fl-table td {
-    text-align: center;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .fl-table th {
-    background-color: #252525;
-    color: white;
-  }
-  
-  .fl-table tr:nth-child(even) {
-    background-color: rgb(212, 175, 55);
+  .fl-table th,
+  .fl-table td {
+    padding: 8px 10px;
   }
   
   .container2 {
-    width: 30%;
-    margin: 30px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .container2 h3{
-    text-align: center;
-  }
-  input, select, button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+    margin: 1rem;
+    padding: 1rem;
   }
   
-  button {
-    background-color: #A3B18A;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
+  #contact input,
+  #contact select,
+  #contact button {
+    font-size: 14px;
   }
-  
-  button:hover {
-    background-color: #2C3E50;
-  }
-  
+}
 
-  .RegisteMessage{
-    text-align: center;
-    color: #D4AF37;
-    font-size: 20px;
+/* تحسينات للطباعة */
+@media print {
+  .container2 {
+    display: none;
   }
+  
+  .chat-link {
+    display: none;
+  }
+  
+  .fl-table {
+    font-size: 12px;
+  }
+}

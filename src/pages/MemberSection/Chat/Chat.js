@@ -9,6 +9,9 @@ const socket = io("http://147.79.101.225:8888"); // أو حسب URL السيرف
 const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState("");
+    const [isConnected, setIsConnected] = useState(false);
+        const [error, setError] = useState(null);
+
     const params = useParams();
     const memberId = params.id;
     const token = window.localStorage.getItem("accessToken");
@@ -20,7 +23,14 @@ const Chat = () => {
             senderId: memberId,
             receiverId: SUPER_ADMIN_ID,
         };
+        socket.on("connect", () => {
+            setIsConnected(true);
+            setError(null);
+        });
 
+        socket.on("disconnect", () => {
+            setIsConnected(false);
+        });
         socket.emit("joinChat", roomIdPayload)
         const fetchChat = async () => {
             try {
@@ -89,7 +99,12 @@ const Chat = () => {
     console.log(messages);
     return (
         <div className="chat-container">
-            <h2>الرسائل</h2>
+            <h2>
+                الرسائل
+                <span className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+                    {isConnected ? '🟢' : '🔴'}
+                </span>
+            </h2>
             <ul className="message-list" ref={bottomRef}>
                 {messages.map((msg, index) => (
                     <li
