@@ -130,15 +130,42 @@ const CompleteTravelRequestDetails = () => {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
-    console.log(extraData)
-    if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
+const handleGenerateReport = async () => {
+        try {
+            await axios.post(
+                `http://147.79.101.225:8888/admin/report/${requestId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
+
+            const updatedRequest = await axios.get(
+                `http://147.79.101.225:8888/admin/request/reception/${requestId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRequest(updatedRequest.data.request);
+
+            alert("تم إنشاء التقرير بنجاح");
+        } catch (error) {
+            console.log(error)
+            alert("حدث خطأ أثناء إنشاء التقرير");
+        }
+    };    if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
+
+    console.log(requestsList)
     return (
         <div className="request-container">
             <h1 className="title">تفاصيل طلب انهاء اجراءات سفر</h1>
             {request && (
                 <div className="request-details">
-                    <img src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`} alt="طلب النقل" className="request-image" />
                     <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                     <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
                     <p><strong>رقم الهاتف:</strong> {request.phone}</p>
@@ -154,6 +181,21 @@ const CompleteTravelRequestDetails = () => {
                     <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                     
                     <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
+                    {request.status == "ended" ? (<div className="report-section">
+                    <h2>التقرير</h2>
+                    {request.reportName ? (
+                        <a
+                            href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="report-link"
+                        >
+                            عرض التقرير
+                        </a>
+                    ) : (
+                        <button onClick={handleGenerateReport}>إنشاء التقرير</button>
+                    )}
+                </div>) : (<div> </div>)}
                 </div>
             )}
             <div className="extra-data">

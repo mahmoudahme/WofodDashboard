@@ -45,9 +45,9 @@ const Bill = () => {
                         className="bill-image"
                     />
                     <div className="bill-info">
-                        <h3>{bill.memberId.name}</h3>
-                        <p>📞 {bill.memberId.phone}</p>
-                        <p>📧 {bill.memberId.email}</p>
+                        <h3>{bill.memberId ?bill.memberId.name : "Member Deleted" }</h3>
+                        <p>📞 {bill.memberId?bill.memberId.phone : "Member Deleted"}</p>
+                        <p>📧 {bill.memberId?bill.memberId.email : "Member Deleted"}</p>
                         <p>🕒 {new Date(bill.createdAt).toLocaleString()}</p>
                     </div>
                 </div>

@@ -101,7 +101,7 @@ const Members = () => {
                 <td>{member.typeOfUser?.nameAr}</td>
                 <td>{member.phone}</td>
                 <td>{member.email}</td>
-                <td>{member.deviceIP == "" ? "Not Registed" : "Registed"}</td>
+                <td>{member.deviceIP == "" ? "Not Registered" : "Registered"}</td>
               </tr>
             ))}
           </tbody>

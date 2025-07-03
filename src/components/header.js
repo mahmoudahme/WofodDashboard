@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import logo from "../pages/Sign/wofod.svg";
 import { useNavigate } from "react-router-dom";
-import { FaUserTie } from "react-icons/fa";
-import { width } from "@mui/system";
+import { FaUserTie, FaSignOutAlt } from "react-icons/fa";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   const Fullname = localStorage.getItem("Fullname");
@@ -18,6 +18,7 @@ const Header = () => {
   const confirmLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userName");
+    localStorage.removeItem("Fullname");
     localStorage.removeItem("role");
     navigate("/");
     setShowModal(false);
@@ -32,46 +33,69 @@ const Header = () => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: "#252525", // الأزرق الغامق
-      color: "#ECF0F1", // الرمادي الفاتح
+      backgroundColor: "#1c1c1c",
+      color: "#ECF0F1",
       padding: "15px 25px",
       boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-      borderRadius: "8px",
-      margin: "10px 20px",
+      // borderRadius: "8px",
+      // margin: "10px 20px",
+      position: "relative",
+      zIndex: 100,
+      direction: "rtl"
+
     },
-    image: {
+    logoContainer: {
+      display: "flex",
+      alignItems: "center",
+    },
+    logo: {
       width: "120px",
-      marginLeft: "30px"
+      height: "auto",
+      objectFit: "contain",
     },
     userInfo: {
       display: "flex",
       alignItems: "center",
-      width : "350px" // لمحاذاة اسم المستخدم وزر تسجيل الخروج في نفس الصف
+      gap: "20px",
+    },
+    userDetails: {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      backgroundColor: "#1c1c1c",
+      padding: "8px 15px",
+      borderRadius: "25px",
+      border: "2px solid #D4AF37",
     },
     username: {
       fontSize: "16px",
-      color: "#ECF0F1", // الرمادي الفاتح
-      marginRight: "20px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center", 
-      width:"161px"// المسافة بين اسم المستخدم وزر تسجيل الخروج
+      color: "#ECF0F1",
+      fontWeight: "500",
+      whiteSpace: "nowrap",
+    },
+    userIcon: {
+      fontSize: "20px",
+      color: "#D4AF37",
     },
     logoutButton: {
-      width: "150px",
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
       padding: "10px 20px",
-      backgroundColor: "#D4AF37", // الأخضر الزيتونيD
-      color: "#2C3E50", // الأزرق الغامق
+      backgroundColor: isHovered ? "#A3B18A" : "#D4AF37",
+      color: "#1c1c1c",
       border: "none",
-      borderRadius: "6px",
+      borderRadius: "25px",
       cursor: "pointer",
       fontSize: "16px",
+      fontWeight: "600",
       transition: "all 0.3s ease",
       fontFamily: "Arial, sans-serif",
+      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
+      boxShadow: isHovered ? "0px 6px 12px rgba(212, 175, 55, 0.4)" : "0px 2px 4px rgba(0, 0, 0, 0.2)",
     },
-    logoutButtonHover: {
-      backgroundColor: "#A3B18A", // الذهبي الناعم
-      boxShadow: "0px 4px 10px rgba(212, 175, 55, 0.5)", // الذهبي الناعم
+    logoutIcon: {
+      fontSize: "16px",
     },
     modalOverlay: {
       position: "fixed",
@@ -79,100 +103,154 @@ const Header = () => {
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backgroundColor: "rgba(0, 0, 0, 0.6)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       zIndex: 1000,
+      backdropFilter: "blur(2px)",
     },
     modal: {
-      backgroundColor: "#ECF0F1", // الرمادي الفاتح
-      borderRadius: "10px",
-      padding: "20px",
-      width: "500px",
+      backgroundColor: "#ECF0F1",
+      borderRadius: "15px",
+      padding: "30px",
+      width: "450px",
+      maxWidth: "90vw",
       textAlign: "center",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      color: "#2C3E50", // الأزرق الغامق
+      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+      color: "#2C3E50",
+      border: "3px solid #D4AF37",
+      animation: "slideIn 0.3s ease-out",
+    },
+    modalTitle: {
+      fontSize: "20px",
+      fontWeight: "bold",
+      marginBottom: "20px",
+      color: "#2C3E50",
     },
     modalActions: {
-      margin: "20px",
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
+      gap: "15px",
+      marginTop: "25px",
     },
     confirmButton: {
-      backgroundColor: "#A3B18A", // الأخضر الزيتوني
-      color: "#2C3E50", // الأزرق الغامق
+      backgroundColor: "#A3B18A",
+      color: "#2C3E50",
       border: "none",
-      padding: "10px 20px",
-      borderRadius: "5px",
+      padding: "12px 25px",
+      borderRadius: "8px",
       cursor: "pointer",
       fontSize: "16px",
-      transition: "0.3s",
-      width: "45%"
+      fontWeight: "600",
+      transition: "all 0.3s ease",
+      flex: 1,
     },
     cancelButton: {
-      backgroundColor: "#D4AF37", // الذهبي الناعم
-      color: "#2C3E50", // الأزرق الغامق
+      backgroundColor: "#D4AF37",
+      color: "#2C3E50",
       border: "none",
-      padding: "10px 20px",
-      borderRadius: "5px",
+      padding: "12px 25px",
+      borderRadius: "8px",
       cursor: "pointer",
       fontSize: "16px",
-      transition: "0.3s",
-      width: "45%"
+      fontWeight: "600",
+      transition: "all 0.3s ease",
+      flex: 1,
     },
-    icon: {
-      fontSize: "20px",
-      color: "#ECF0F1", // الرمادي الفاتح
-      margin: "5px",
+    // Responsive design
+    "@media (max-width: 768px)": {
+      header: {
+        padding: "10px 15px",
+        margin: "5px 10px",
+      },
+      logo: {
+        width: "100px",
+      },
+      userDetails: {
+        padding: "6px 10px",
+      },
+      username: {
+        fontSize: "14px",
+      },
+      logoutButton: {
+        padding: "8px 15px",
+        fontSize: "14px",
+      },
+      modal: {
+        width: "350px",
+        padding: "20px",
+      },
     },
   };
 
-  return (
-    <header style={styles.header}>
+  // Add CSS keyframes for animation
+  const keyframes = `
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
 
-      <div style={styles.userInfo}>
-        <div style={{display : "flex" , justifyContent:"space-between"}}>
+  return (
+    <>
+      <style>{keyframes}</style>
+      <header style={styles.header}>
+        <div style={styles.logoContainer}>
+          <img src={logo} alt="Logo" style={styles.logo} />
+        </div>
+
+        <div style={styles.userInfo}>
+          <div style={styles.userDetails}>
+            <FaUserTie style={styles.userIcon} />
+            <span style={styles.username}>{Fullname || "مستخدم"}</span>
+          </div>
+          
           <button
             onClick={handleLogout}
             style={styles.logoutButton}
-            onMouseOver={(e) =>
-              (e.target.style.backgroundColor = styles.logoutButtonHover.backgroundColor)
-            }
-            onMouseOut={(e) =>
-              (e.target.style.backgroundColor = styles.logoutButton.backgroundColor)
-            }
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
+            <FaSignOutAlt style={styles.logoutIcon} />
             تسجيل خروج
           </button>
-          <div style={styles.username}>
-            <FaUserTie style={styles.icon} />
-            {Fullname}
-          </div>
-
         </div>
-
-
-      </div>
-      <img src={logo} alt="Logo" style={styles.image} />
-
+      </header>
 
       {showModal && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modal}>
-            <h2>هل انت متاكد من تسجيل الخروج </h2>
+        <div style={styles.modalOverlay} onClick={cancelLogout}>
+          <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <h2 style={styles.modalTitle}>تأكيد تسجيل الخروج</h2>
+            <p>هل أنت متأكد من رغبتك في تسجيل الخروج؟</p>
             <div style={styles.modalActions}>
-            <button onClick={cancelLogout} style={styles.cancelButton}>
-                لا
+              <button 
+                onClick={confirmLogout} 
+                style={styles.confirmButton}
+                onMouseEnter={(e) => e.target.style.transform = "translateY(-2px)"}
+                onMouseLeave={(e) => e.target.style.transform = "translateY(0)"}
+              >
+                نعم، تسجيل خروج
               </button>
-              <button onClick={confirmLogout} style={styles.confirmButton}>
-                نعم
+              <button 
+                onClick={cancelLogout} 
+                style={styles.cancelButton}
+                onMouseEnter={(e) => e.target.style.transform = "translateY(-2px)"}
+                onMouseLeave={(e) => e.target.style.transform = "translateY(0)"}
+              >
+                إلغاء
               </button>
             </div>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 };
 

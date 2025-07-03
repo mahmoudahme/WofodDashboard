@@ -54,11 +54,15 @@ const ReceptionRequestDetails = () => {
               x
             </button>
             {
-              request.image ? <img
-              src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`}
-              alt="طلب"
-              className="request-image"
-            /> : ""
+              request.image ? (
+                <img
+                  src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`}
+                  alt="طلب"
+                  className="request-image"
+                />
+              ) : (
+                ""
+              )
             }
             
             <div className="request-details">
@@ -74,18 +78,18 @@ const ReceptionRequestDetails = () => {
               <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
               <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
               <p className={`status ${request.status}`}>
-              {
-                    request.status === "pending" ? "قيد المراجعة" :
-                        request.status === "active" ? "نشط" :
-                            request.status === "ended" ? "منتهي" :
-                                "غير معروف"
+                {
+                  request.status === "pending" ? "قيد المراجعة" :
+                  request.status === "active" ? "نشط" :
+                  request.status === "ended" ? "منتهي" :
+                  "غير معروف"
                 }
               </p>
             </div>
             <Link to={`${request._id}`} style={{ color: "white" }}>
-            <button className="request-link">
-             عرض الطلب
-            </button>
+              <button className="request-link">
+                عرض الطلب
+              </button>
             </Link>
           </div>
         ))}
@@ -95,3 +99,4 @@ const ReceptionRequestDetails = () => {
 };
 
 export default ReceptionRequestDetails;
+

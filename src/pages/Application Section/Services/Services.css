@@ -1,134 +1,365 @@
+/* Services.css */
 .services-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .service-form {
-    width: 100%;
-    max-width: 500px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .service-form h2{
+    margin: 0 auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.services-container h2 {
     text-align: center;
-  }
-  .service-form input,
-  .service-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .service-form button {
-    padding: 10px;
-    background: #D4AF37;;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .service-form button:hover {
-    background: #218838;
-  }
-  
-  .services-list {
+    color: #252525;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.services-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #D4AF37, #f4d03f);
+    border-radius: 2px;
+}
+
+/* Services List */
+.services-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .service-card {
-    width: 300px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap; /* علشان العناصر تنزل تحت بعض لو مفيش مساحة كفاية */
+    gap: 2rem; /* المسافة بين العناصر */
+    margin-bottom: 4rem;
+    justify-content: center; /* أو space-around لو عايز تباعد بينهم */
+    align-items: stretch; /* يخلي كل الكروت بنفس الارتفاع لو تحب */
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* width: 320px;
+    height: 500px; */
+    width: 350px;
+    padding-bottom: 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-    text-align: center;
-    padding: 15px;
-  }
-  
-  .service-card:hover {
-    transform: translateY(-2px);
-  }
-  
-  .service-image {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+    border-color: #D4AF37;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #D4AF37, #f4d03f);
+}
+
+.service-image {
     width: 100%;
-    height: 180px;
+    height: 250px;
     object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #333;
-    margin: 10px 0;
-  }
-  
-  p {
-    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-image {
+    transform: scale(1.05);
+}
+
+.service-card h2 {
+    color: #252525;
+    font-size: 1.4rem;
+    margin: 1.5rem 1.5rem 1rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.service-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-card a:hover h2 {
+    color: #D4AF37;
+}
+
+.service-card p {
     color: #666;
-    margin: 5px 0;
-  }
-  
-  .loading {
-    font-size: 18px;
+    margin: 0 1.5rem 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* عدد السطور */
+    -webkit-box-orient: vertical;
+}
+
+.service-card h5 {
+    color: #D4AF37;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 1rem 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    margin: auto 1.5rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    align-self: center; /* يخليه في النص لو تحب */
+    width: calc(100% - 3rem); /* يخليه بعرض الكرت تقريبًا مع هوامش 1.5 يمين وشمال */
+}
+.delete-btn:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Loading State */
+.loading {
     text-align: center;
-    color: #666;
-  }
-  
-  .confirm-modal {
+    color: #252525;
+    font-size: 1.2rem;
+    margin: 4rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Service Form */
+.service-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 2px solid #D4AF37;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #D4AF37, #f4d03f, #D4AF37);
+}
+
+.service-form h2 {
+    color: #252525;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.service-form input,
+.service-form textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: #f8f9fa;
+}
+
+.service-form input:focus,
+.service-form textarea:focus {
+    outline: none;
+    border-color: #D4AF37;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.service-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.service-form input[type="file"] {
+    padding: 1rem;
+    background: white;
+    border: 2px dashed #D4AF37;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.service-form input[type="file"]:hover {
+    background: #fffbf0;
+    border-color: #252525;
+}
+
+.service-form button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(135deg, #D4AF37, #f4d03f);
+    color: #252525;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.service-form button[type="submit"]:hover {
+    background: linear-gradient(135deg, #f4d03f, #D4AF37);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Confirm Modal */
+.confirm-modal {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    right: 0;
+    bottom: 0;
+    background: rgba(37, 37, 37, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 
 .confirm-box {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 3rem;
+    border-radius: 20px;
     text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border: 3px solid #D4AF37;
+    max-width: 400px;
+    width: 90%;
+}
+
+.confirm-box p {
+    color: #252525;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
 .confirm-btn {
-    background: red;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 10px;
     border: none;
-    margin-right: 10px;
+    padding: 1rem 2rem;
+    margin: 0 0.5rem;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.confirm-btn:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
 }
 
 .cancel-btn {
-    background: gray;
-    color: white;
-    padding: 10px;
+    background: linear-gradient(135deg, #D4AF37, #f4d03f);
+    color: #252525;
     border: none;
+    padding: 1rem 2rem;
+    margin: 0 0.5rem;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-.delete-btn {
-    background: red;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+.cancel-btn:hover {
+    background: linear-gradient(135deg, #f4d03f, #D4AF37);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
+
+/* Responsive Design
+@media (max-width: 768px) {
+    .services-container {
+        padding: 1rem;
+    }
+    
+    .services-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-form {
+        padding: 2rem;
+    }
+    
+    .services-container h2 {
+        font-size: 2rem;
+    }
+    
+    .confirm-box {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .service-card h2 {
+        font-size: 1.2rem;
+    }
+    
+    .service-form h2 {
+        font-size: 1.5rem;
+    }
+    
+    .confirm-btn,
+    .cancel-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+} */

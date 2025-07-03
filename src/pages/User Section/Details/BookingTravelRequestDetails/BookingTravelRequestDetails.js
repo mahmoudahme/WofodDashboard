@@ -130,7 +130,34 @@ const BookingTravelRequestDetails = () => {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
+const handleGenerateReport = async () => {
+        try {
+            await axios.post(
+                `http://147.79.101.225:8888/admin/report/${requestId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
 
+            const updatedRequest = await axios.get(
+                `http://147.79.101.225:8888/admin/request/reception/${requestId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRequest(updatedRequest.data.request);
+
+            alert("تم إنشاء التقرير بنجاح");
+        } catch (error) {
+            console.log(error)
+            alert("حدث خطأ أثناء إنشاء التقرير");
+        }
+    };
     if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
     return (
@@ -158,6 +185,21 @@ const BookingTravelRequestDetails = () => {
 
                         <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                         <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
+                        {request.status == "ended" ? (<div className="report-section">
+                    <h2>التقرير</h2>
+                    {request.reportName ? (
+                        <a
+                            href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="report-link"
+                        >
+                            عرض التقرير
+                        </a>
+                    ) : (
+                        <button onClick={handleGenerateReport}>إنشاء التقرير</button>
+                    )}
+                </div>) : (<div> </div>)}
                     </div>
                 )}
             </div>

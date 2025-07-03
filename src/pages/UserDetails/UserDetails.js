@@ -15,6 +15,7 @@ const UserDetails = () => {
     });
 
     const [isLoading, setIsLoading] = useState(true); // حالة تحميل البيانات
+    const [reportDate, setReportDate] = useState(""); // حالة تاريخ التقرير
 
     const userId = params.id;
 
@@ -30,10 +31,11 @@ const UserDetails = () => {
                 setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching data", error);
+                setIsLoading(false);
             }
         };
         fetchData();
-    }, []);
+    }, [userId, token]);
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // منع تحميل الصفحة عند إرسال البيانات
@@ -46,14 +48,19 @@ const UserDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
+            alert("تم تعديل البيانات بنجاح");
             window.location.reload()
         } catch (error) {
             console.error("Error updating data", error);
+            alert("حدث خطأ أثناء تعديل البيانات");
         }
     };
 
     const deleteUser = async (event) => {
         event.preventDefault(); // منع تحميل الصفحة عند إرسال البيانات
+
+        const confirmDelete = window.confirm("هل أنت متأكد من حذف هذا المستخدم؟");
+        if (!confirmDelete) return;
 
         try {
             const response = await axios.delete(
@@ -62,9 +69,11 @@ const UserDetails = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
+            alert("تم حذف المستخدم بنجاح");
             navigate("/dashboard/users");
         } catch (error) {
             console.error("Error Deleting data", error);
+            alert("حدث خطأ أثناء حذف المستخدم");
         }
     };
 
@@ -76,62 +85,126 @@ const UserDetails = () => {
         }));
     };
 
+    const handleReportSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!reportDate) {
+            alert("يرجى اختيار التاريخ");
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                `http://147.79.101.225:8888/admin/report/user/${userId}`,
+                { dateOfRequest: reportDate },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            alert("تم إنشاء التقرير بنجاح");
+            console.log("Report response:", response.data);
+            setReportDate(""); // إعادة تعيين التاريخ بعد النجاح
+        } catch (error) {
+            console.error("فشل إنشاء التقرير:", error.message);
+            alert("حدث خطأ أثناء إنشاء التقرير");
+        }
+    };
+
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className="loading-container">جاري تحميل البيانات...</div>;
     }
-    //
+
     return (
-        <div>
-            <h1 className="UserDetailsPage">{userData.name}</h1>
-            <form onSubmit={handleSubmit} className="formForcustomer">
-                <div className="div">
-                <label className="labelForUser">اسم المستخدم </label>
+        <div className="user-details-container">
+            {/* قسم معلومات المستخدم */}
+            <div className="user-info-section">
+                <h1 className="page-title">تفاصيل المستخدم: {userData.name}</h1>
+                
+                {/* فورم تعديل البيانات */}
+                <form onSubmit={handleSubmit} className="user-form">
+                    <h2 className="form-title">تعديل بيانات المستخدم</h2>
+                    
+                    <div className="form-group">
+                        <label className="form-label">اسم المستخدم</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            name="name"
+                            value={userData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className="form-label">البريد الإلكتروني</label>
+                        <input
+                            className="form-input"
+                            type="email"
+                            name="email"
+                            value={userData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className="form-label">رقم الهاتف</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            name="phone"
+                            value={userData.phone}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-actions">
+                        <button type="submit" className="btn btn-primary">
+                            تعديل البيانات
+                        </button>
+                    </div>
+                </form>
 
-                    <input
-                        className="inputForUser2"
-                        type="text"
-                        name="name"
-                        value={userData.name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="div">
-                <label className="labelForUser">البريد الالكتروني</label>
+                {/* فورم حذف المستخدم */}
+                <form onSubmit={deleteUser} className="delete-form">
+                    <div className="form-actions">
+                        <button type="submit" className="btn btn-danger">
+                            حذف المستخدم
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                    <input
-                        className="inputForUser2"
-                        type="email"
-                        name="email"
-                        value={userData.email}
-                        onChange={handleChange}
-                    />
-
-                </div>
-                <div className="div">
-                <label className="labelForUser">الهاتف</label>
-
-                    <input
-                        className="inputForUser2"
-                        type="text"
-                        name="phone"
-                        value={userData.phone}
-                        onChange={handleChange}
-                    />
-
-                </div>
-                <br />
-                <br />
-                <div className="buttonForm">
-                    <button type="submit" className="button" >تعديل البيانات</button>
-                </div>
-            </form>
-            <form onSubmit={deleteUser} className="formForcustomer" >
-                <div className="buttonForm">
-                    <button type="submit" className="button" id="button">حذف المستخدم</button>
-                </div>
-            </form>
+            {/* قسم إنشاء التقرير */}
+            <div className="report-section">
+                <h2 className="section-title">إنشاء تقرير</h2>
+                
+                <form onSubmit={handleReportSubmit} className="report-form">
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="date-input">
+                            اختر التاريخ:
+                        </label>
+                        <input
+                            id="date-input"
+                            className="form-input"
+                            type="date"
+                            value={reportDate}
+                            onChange={(e) => setReportDate(e.target.value)}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-actions">
+                        <button type="submit" className="btn btn-success">
+                            إنشاء التقرير
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-
     );
 };
 
