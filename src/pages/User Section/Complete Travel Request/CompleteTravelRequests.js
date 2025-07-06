@@ -15,7 +15,7 @@ const CompleteTravelRequests = () => {
         const response = await axios.get("http://147.79.101.225:8888/admin/request/complete", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setRequests(response.data.Requests); // تخزين البيانات في الحالة
+        setRequests(response.data.Requests);
         setLoading(false);
       } catch (err) {
         setError("حدث خطأ أثناء جلب البيانات");
@@ -25,54 +25,49 @@ const CompleteTravelRequests = () => {
 
     fetchRequests();
   }, [token]);
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://147.79.101.225:8888/admin/request/complete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // تحديث الحالة بعد الحذف لحذف الطلب من الواجهة مباشرةً
       setRequests((prevRequests) => prevRequests.filter((request) => request._id !== id));
     } catch (error) {
       console.error("خطأ أثناء حذف الطلب:", error);
     }
   };
+
   if (loading) return <p>جاري تحميل البيانات...</p>;
   if (error) return <p>{error}</p>;
-  return (
-    <div className="requests-container">
-      <h1 className="Requests_Page">طلبات انهاء اجراءات السفر</h1>
-      <div className="requests-list">
-        {requests.map((request) => (
-          <div key={request._id} className="request-card">
-            <button className="delete-button" onClick={() => handleDelete(request._id)}>
-              x
-            </button>
-            <div className="request-details">
-              <h2>{request.firstName} {request.familyName}</h2>
-              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-              <p><strong>رقم الهاتف:</strong> {request.phone}</p>
-              <p><strong>الجنسية:</strong> {request.nationality}</p>
-              <p><strong>عدد الرحلات:</strong> {request.numOfTrip}</p>
-              <p><strong>رقم الهوية/الجواز:</strong> {request.IDOrPassportNumber}</p>
-              <p><strong>المطار:</strong> {request.airport?.nameAr}</p>
-              <p><strong>الخطوط الجوية:</strong> {request.airline?.nameAr}</p>
-              <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
-              <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
-              <p><strong>المستخدم:</strong> {request.userId.name} - {request.userId.phone}</p>
-              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
 
-              <p className={`status ${request.status.toLowerCase()}`}>
+  return (
+    <div className="travel-requests-wrapper">
+      <h1 className="page-title">طلبات انهاء اجراءات السفر</h1>
+      <div className="requests-grid">
+        {requests.map((request) => (
+          <div key={request._id} className="request-item">
+            <button className="remove-btn" onClick={() => handleDelete(request._id)}>
+              ✕
+            </button>
+            <div className="request-info">
+              <h2 className="client-name">{request.firstName} {request.familyName}</h2>
+              <p className="order-number"><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+              <p className="phone-number"><strong>رقم الهاتف:</strong> {request.phone}</p>
+              <p className="service-name"><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
+              <p className="request-date"><strong>تاريخ الطلب:</strong> {request.dateOfRequest}</p>
+              
+              <div className={`request-status ${request.status.toLowerCase()}`}>
                 {
                   request.status === "pending" ? "قيد المراجعة" :
                     request.status === "active" ? "نشط" :
                       request.status === "ended" ? "منتهي" :
                         "غير معروف"
                 }
-              </p>
+              </div>
             </div>
-            <button className="request-link">
-              <Link to={`${request._id}`} style={{ color: "white" }}>عرض الطلب</Link>
+            <button className="view-details-btn">
+              <Link to={`${request._id}`} className="view-link">عرض التفاصيل</Link>
             </button>
           </div>
         ))}

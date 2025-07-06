@@ -45,48 +45,39 @@ const BookingHotelsRequest = () => {
   if (error) return <p className="error-text">{error}</p>;
 
   return (
-    <div className="requests-container">
-      <h1 className="Requests_Page">طلبات حجز الفنادق</h1>
+    <div className="travel-requests-wrapper">
+      <h1 className="page-title">طلبات حجز الفنادق</h1>
       {requests.length === 0 ? (
         <p className="no-requests">لا توجد طلبات متاحة</p>
       ) : (
-        <div className="requests-list">
-          {requests.map((request) => (
-            <div key={request._id} className="request-card">
-              <button className="delete-button" onClick={() => handleDelete(request._id)}>
-                x
-              </button>
-              <div className="request-details">
-                <h3>{request.hotel.nameAr}</h3>
-                <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
-                <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-
-                <p><strong>رقم الهاتف:</strong> {request.phone}</p>
-                <p><strong>الجنسية:</strong> {request.nationality}</p>
-                <p><strong>الفندق:</strong> {request.hotel?.nameAr || "غير متوفر"}</p>
-                <p><strong>الخدمة:</strong> {request.serviceId?.nameAr || "غير متوفر"}</p>
-                <p><strong>وقت الدخول:</strong> {request.enteryDate}</p>
-                <p><strong>وقت المغادرة:</strong> {request.leaveingDate}</p>
-                <p><strong>نوع الغرفه:</strong> {request.typeOfRoom.nameAr}</p>
-                <p><strong>عدد الليالي:</strong> {request.numOfNigths}</p>
-                <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
-                <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
-
-                <p className={`status ${request.status}`}>
-                  {
-                    request.status === "pending" ? "قيد المراجعة" :
-                      request.status === "active" ? "نشط" :
-                        request.status === "ended" ? "منتهي" :
-                          "غير معروف"
-                  }
-                </p>
+        <div className="requests-grid">
+                {requests.map((request) => (
+                  <div key={request._id} className="request-item">
+                    <button className="remove-btn" onClick={() => handleDelete(request._id)}>
+                      ✕
+                    </button>
+                    <div className="request-info">
+                      <h2 className="client-name">{request.firstName} {request.familyName}</h2>
+                      <p className="order-number"><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+                      <p className="phone-number"><strong>رقم الهاتف:</strong> {request.phone}</p>
+                      <p className="service-name"><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
+                      <p className="request-date"><strong>تاريخ الطلب:</strong> {request.dateOfRequest}</p>
+                      
+                      <div className={`request-status ${request.status.toLowerCase()}`}>
+                        {
+                          request.status === "pending" ? "قيد المراجعة" :
+                            request.status === "active" ? "نشط" :
+                              request.status === "ended" ? "منتهي" :
+                                "غير معروف"
+                        }
+                      </div>
+                    </div>
+                    <button className="view-details-btn">
+                      <Link to={`${request._id}`} className="view-link">عرض التفاصيل</Link>
+                    </button>
+                  </div>
+                ))}
               </div>
-              <button className="request-link">
-                <Link to={`${request._id}`} style={{ color: "white" }}>عرض الطلب</Link>
-              </button>
-            </div>
-          ))}
-        </div>
       )}
     </div>
   );

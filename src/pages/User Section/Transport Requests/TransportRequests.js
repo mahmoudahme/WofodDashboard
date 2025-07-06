@@ -46,46 +46,36 @@ const TransportRequests = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="requests-container">
-      <h1 className="Requests_Page">طلبات النقل</h1>
-      <div className="requests-list">
-        {requests.map((request) => (
-          <div key={request._id} className="request-card">
-
-            <button className="delete-button" onClick={() => handleDelete(request._id)}>
-              x
-            </button>
-            <div className="request-details">
-              <h2>{request.firstName} {request.familyName}</h2>
-              <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-              <p><strong>رقم الهاتف:</strong> {request.phone}</p>
-              <p><strong>الجنسية:</strong> {request.nationality}</p>
-              <p><strong>مدينة النقل:</strong> {request.city.nameAr}</p>
-              <p><strong> من :</strong> {request.from}</p>
-              <p><strong> الي :</strong> {request.to}</p>
-              <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
-              <p><strong>نوع السيارة:</strong> {request.carId.nameAr}</p>
-              <p><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
-              <p><strong>المستخدم:</strong> {request.userId.name} - {request.userId.phone}</p>
-              <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
-
-              <p className={`status ${request.status.toLowerCase()}`}>
-                {
-                  request.status === "pending" ? "قيد المراجعة" :
-                    request.status === "active" ? "نشط" :
-                      request.status === "ended" ? "منتهي" :
-                        "غير معروف"
-                }
-              </p>
+    <div className="travel-requests-wrapper">
+      <h1 className="page-title">طلبات النقل</h1>
+      <div className="requests-grid">
+              {requests.map((request) => (
+                <div key={request._id} className="request-item">
+                  <button className="remove-btn" onClick={() => handleDelete(request._id)}>
+                    ✕
+                  </button>
+                  <div className="request-info">
+                    <h2 className="client-name">{request.firstName} {request.familyName}</h2>
+                    <p className="order-number"><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+                    <p className="phone-number"><strong>رقم الهاتف:</strong> {request.phone}</p>
+                    <p className="service-name"><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
+                    <p className="request-date"><strong>تاريخ الطلب:</strong> {request.dateOfRequest}</p>
+                    
+                    <div className={`request-status ${request.status.toLowerCase()}`}>
+                      {
+                        request.status === "pending" ? "قيد المراجعة" :
+                          request.status === "active" ? "نشط" :
+                            request.status === "ended" ? "منتهي" :
+                              "غير معروف"
+                      }
+                    </div>
+                  </div>
+                  <button className="view-details-btn">
+                    <Link to={`${request._id}`} className="view-link">عرض التفاصيل</Link>
+                  </button>
+                </div>
+              ))}
             </div>
-            <Link to={`${request._id}`} style={{ color: "white" }}>
-              <button className="request-link">
-                عرض الطلب
-              </button>
-            </Link>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
