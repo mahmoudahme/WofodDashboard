@@ -106,7 +106,10 @@ const handleReportSubmit = async (event) => {
 
         alert("تم إنشاء التقرير بنجاح");
         console.log("Report response:", response.data); 
+
         setReportDate(""); // إعادة تعيين التاريخ بعد النجاح
+        window.location.reload();
+
 
     } catch (error) {
         if (error.response) {
