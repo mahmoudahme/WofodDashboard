@@ -25,7 +25,7 @@
   color: #2c3e50;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* قسم معلومات المستخدم */
@@ -34,7 +34,7 @@
   border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid #e3e3e3;
 }
 
@@ -43,7 +43,7 @@
   background: white;
   border-radius: 15px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid #e3e3e3;
 }
 
@@ -123,7 +123,7 @@
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* أزرار مختلفة الألوان */
@@ -185,21 +185,21 @@
   .user-details-container {
     padding: 1rem;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .user-info-section,
   .report-section {
     padding: 1.5rem;
   }
-  
+
   .form-actions {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .btn {
     width: 100%;
     max-width: 300px;
@@ -210,11 +210,11 @@
   .page-title {
     font-size: 1.5rem;
   }
-  
+
   .section-title {
     font-size: 1.3rem;
   }
-  
+
   .user-info-section,
   .report-section {
     padding: 1rem;
@@ -240,7 +240,7 @@
 .user-info-section:hover,
 .report-section:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* تحسين المظهر العام */
@@ -252,4 +252,49 @@ body {
   margin: 0;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
+}
+
+.previous-reports-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.reports-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  /* لجعل العناصر جنب بعض */
+  flex-wrap: wrap;
+  /* السماح بنزول العناصر للسطر التالي */
+  gap: 10px;
+  /* مسافة بين العناصر */
+}
+
+.report-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 16px;
+  width: fit-content;
+  /* أو حدد عرض ثابت مثل 200px لو حابب */
+}
+
+.report-item:last-child {
+  border-bottom: none;
+}
+
+.report-link {
+  text-decoration: none;
+  color: #007bff;
+  transition: 0.2s;
+}
+
+.report-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }

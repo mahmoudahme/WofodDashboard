@@ -88,7 +88,7 @@ const Sidebar = () => {
 
   const menuItems = [
     ...(userRole === "super_admin" || userRole === "user_Requests" || userRole === "application" ? [
-      { to: "/dashboard", label: "الصفحة الرئيسية", icon: <FaDashcube /> },
+      { to: "/dashboard", label: "لوحة التحكم الإدارية", icon: <FaDashcube /> },
     ] : []),
     ...(userRole === "super_admin" ? [
       { to: "/dashboard/admins", label: "الإدمن", icon: <FaUserShield /> },
@@ -107,7 +107,7 @@ const Sidebar = () => {
       { to: "/dashboard/bill", label: "فواتير الأعضاء", icon: <FaMoneyBill /> },
     ] : []),
     ...(userRole === "super_admin" || userRole === "application" ? [
-      { label: "قسم التطبيق" },
+      { label: "التطبيق" },
       { to: "/dashboard/services", label: "الخدمات", icon: <FaServicestack /> },
       { label: "الطيران" },
       { to: "/dashboard/airports", label: "المطارات", icon: <FaFly /> },

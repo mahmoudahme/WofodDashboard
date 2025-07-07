@@ -85,31 +85,44 @@ const UserDetails = () => {
         }));
     };
 
-    const handleReportSubmit = async (event) => {
-        event.preventDefault();
+const handleReportSubmit = async (event) => {
+    event.preventDefault();
 
-        if (!reportDate) {
-            alert("يرجى اختيار التاريخ");
-            return;
-        }
+    if (!reportDate) {
+        alert("يرجى اختيار التاريخ");
+        return;
+    }
 
-        try {
-            const response = await axios.post(
-                `http://147.79.101.225:8888/admin/report/user/${userId}`,
-                { dateOfRequest: reportDate },
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            );
+    try {
+        const response = await axios.post(
+            `http://147.79.101.225:8888/admin/report/user/${userId}`,
+            { dateOfRequest: reportDate },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+                // allow redirects to be handled manually (optional):
+                maxRedirects: 0 
+            }
+        );
 
-            alert("تم إنشاء التقرير بنجاح");
-            console.log("Report response:", response.data);
-            setReportDate(""); // إعادة تعيين التاريخ بعد النجاح
-        } catch (error) {
+        alert("تم إنشاء التقرير بنجاح");
+        console.log("Report response:", response.data); 
+        setReportDate(""); // إعادة تعيين التاريخ بعد النجاح
+
+    } catch (error) {
+        if (error.response) {
+            if (error.response.status === 301) {
+                alert(error.response.data.message || "تمت إعادة التوجيه");
+            } else {
+                alert("خطأ من السيرفر: " + (error.response.data.message || "حدث خطأ غير معروف"));
+            }
+            console.error("Response error:", error.response);
+        } else {
             console.error("فشل إنشاء التقرير:", error.message);
             alert("حدث خطأ أثناء إنشاء التقرير");
         }
-    };
+    }
+};
+
 
     if (isLoading) {
         return <div className="loading-container">جاري تحميل البيانات...</div>;
@@ -119,12 +132,12 @@ const UserDetails = () => {
         <div className="user-details-container">
             {/* قسم معلومات المستخدم */}
             <div className="user-info-section">
-                <h1 className="page-title">تفاصيل المستخدم: {userData.name}</h1>
-                
+                <h1 className="page-title">{userData.name}</h1>
+
                 {/* فورم تعديل البيانات */}
                 <form onSubmit={handleSubmit} className="user-form">
                     <h2 className="form-title">تعديل بيانات المستخدم</h2>
-                    
+
                     <div className="form-group">
                         <label className="form-label">اسم المستخدم</label>
                         <input
@@ -136,7 +149,7 @@ const UserDetails = () => {
                             required
                         />
                     </div>
-                    
+
                     <div className="form-group">
                         <label className="form-label">البريد الإلكتروني</label>
                         <input
@@ -148,7 +161,7 @@ const UserDetails = () => {
                             required
                         />
                     </div>
-                    
+
                     <div className="form-group">
                         <label className="form-label">رقم الهاتف</label>
                         <input
@@ -160,7 +173,7 @@ const UserDetails = () => {
                             required
                         />
                     </div>
-                    
+
                     <div className="form-actions">
                         <button type="submit" className="btn btn-primary">
                             تعديل البيانات
@@ -177,11 +190,35 @@ const UserDetails = () => {
                     </div>
                 </form>
             </div>
+            {/* سكشن عرض التقارير القديمة */}
+            <div className="previous-reports-section">
+                <h2 className="section-title">التقارير السابقة</h2>
+
+                {userData.reports && userData.reports.length > 0 ? (
+                    <ul className="reports-list">
+                        {userData.reports.slice().reverse().map((report, index) => (
+                            <li key={index} className="report-item">
+                                <a
+                                    href={`http://147.79.101.225:8888/uploads/reports/${report}`}
+                                    className="report-link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    🗓️ {report}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="no-reports">لا يوجد تقارير حالية</p>
+                )}
+            </div>
+
 
             {/* قسم إنشاء التقرير */}
             <div className="report-section">
                 <h2 className="section-title">إنشاء تقرير</h2>
-                
+
                 <form onSubmit={handleReportSubmit} className="report-form">
                     <div className="form-group">
                         <label className="form-label" htmlFor="date-input">
@@ -196,7 +233,7 @@ const UserDetails = () => {
                             required
                         />
                     </div>
-                    
+
                     <div className="form-actions">
                         <button type="submit" className="btn btn-success">
                             إنشاء التقرير
@@ -204,6 +241,8 @@ const UserDetails = () => {
                     </div>
                 </form>
             </div>
+            {/* سكشن عرض التقارير القديمة */}
+
         </div>
     );
 };
