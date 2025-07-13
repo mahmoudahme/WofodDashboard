@@ -417,3 +417,59 @@ body {
     font-size: 1.5rem;
   }
 }
+
+.members-data-table {
+  margin-top: 30px;
+  border-radius: 25px;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+              0 0 0 1px rgba(212, 175, 55, 0.3);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  animation: slideInFromRight 0.8s ease-out 0.3s both;
+}
+
+.members-table-title {
+  color: #252525;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+  color: #D4AF37;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.members-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+  direction: rtl;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.03));
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.members-data-table th,
+.members-data-table td {
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 1rem;
+  color: #252525;
+}
+
+.members-data-table th {
+  background-color: rgba(212, 175, 55, 0.15);
+  color: #D4AF37;
+  font-weight: 700;
+}
+
+.members-data-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.members-data-table tr:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+  transition: background-color 0.3s ease;
+}
