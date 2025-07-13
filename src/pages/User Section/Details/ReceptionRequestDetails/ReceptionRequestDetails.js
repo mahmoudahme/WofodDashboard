@@ -176,6 +176,8 @@ const ReceptionRequestDetails = () => {
                 <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
 
                 <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
+                <p><strong>المنصب:</strong> {request.position}</p>
+                <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                 <p><strong>الهاتف:</strong> {request.phone}</p>
                 <p><strong>مدينة الوصول:</strong> {request.cityOfArrival?.nameAr} ({request.cityOfArrival?.nameEn})</p>
                 <p><strong>عدد الرحلات:</strong> {request.numOfTrip}</p>
@@ -192,7 +194,7 @@ const ReceptionRequestDetails = () => {
                 <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                 <p><strong>تاريخ الإنشاء:</strong> {new Date(request.createdAt).toLocaleDateString()}</p>
                 <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
-               {request.status == "ended" ? (<div className="report-section">
+                {request.status == "ended" ? (<div className="report-section">
                     <h2>التقرير</h2>
                     {request.reportName ? (
                         <a
@@ -207,7 +209,7 @@ const ReceptionRequestDetails = () => {
                         <button onClick={handleGenerateReport}>إنشاء التقرير</button>
                     )}
                 </div>) : (<div> </div>)}
-            </div> 
+            </div>
 
 
             <div className="extra-data">

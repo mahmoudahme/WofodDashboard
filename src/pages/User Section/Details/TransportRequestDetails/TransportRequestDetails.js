@@ -117,7 +117,7 @@ const TransportRequestDetails = () => {
                     },
                 }
             );
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId},
+            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ const TransportRequestDetails = () => {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
- const handleGenerateReport = async () => {
+    const handleGenerateReport = async () => {
         try {
             await axios.post(
                 `http://147.79.101.225:8888/admin/report/${requestId}`,
@@ -166,9 +166,11 @@ const TransportRequestDetails = () => {
             <h1 className="title">تفاصيل طلب النقل</h1>
 
             <div className="request-details">
-                <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
                 <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
+                <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
                 <p><strong>الهاتف:</strong> {request.phone}</p>
+                <p><strong>المنصب:</strong> {request.position}</p>
+                <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                 <p><strong>الجنسية:</strong> {request.nationality}</p>
                 <p><strong>المدينة:</strong> {request.city?.nameAr}</p>
                 <p><strong>من :</strong> {request.from}  ..... <strong>الي :</strong>{request.to} </p>

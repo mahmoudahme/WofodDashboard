@@ -130,7 +130,7 @@ const BookingTravelRequestDetails = () => {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
-const handleGenerateReport = async () => {
+    const handleGenerateReport = async () => {
         try {
             await axios.post(
                 `http://147.79.101.225:8888/admin/report/${requestId}`,
@@ -162,17 +162,18 @@ const handleGenerateReport = async () => {
     if (error) return <p className="error-text">{error}</p>;
     return (
         <div className="request-container">
-            <h1 className="title">تفاصيل طلب المرافقه</h1>
+            <h1 className="title">تفاصيل حجز الطيران</h1>
 
             <div className="request-details">
                 {request && (
                     <div className="request-details">
-                        
+                        <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                         <p><strong>نوع السفر:</strong> {request.typeOfTravel}</p>
                         <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
-                        <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-
                         <p><strong>رقم الهاتف:</strong> {request.phone}</p>
+
+                        <p><strong>المنصب:</strong> {request.position}</p>
+                        <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                         <p><strong>الجنسية:</strong> {request.nationality}</p>
                         <p><strong>رقم الهوية/جواز السفر:</strong> {request.IDOrPassportNumber}</p>
                         <p><strong>المطار:</strong> {request.airport.nameAr}</p>
@@ -186,20 +187,20 @@ const handleGenerateReport = async () => {
                         <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
                         <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                         {request.status == "ended" ? (<div className="report-section">
-                    <h2>التقرير</h2>
-                    {request.reportName ? (
-                        <a
-                            href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="report-link"
-                        >
-                            عرض التقرير
-                        </a>
-                    ) : (
-                        <button onClick={handleGenerateReport}>إنشاء التقرير</button>
-                    )}
-                </div>) : (<div> </div>)}
+                            <h2>التقرير</h2>
+                            {request.reportName ? (
+                                <a
+                                    href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="report-link"
+                                >
+                                    عرض التقرير
+                                </a>
+                            ) : (
+                                <button onClick={handleGenerateReport}>إنشاء التقرير</button>
+                            )}
+                        </div>) : (<div> </div>)}
                     </div>
                 )}
             </div>

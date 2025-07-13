@@ -12,7 +12,7 @@ const CompleteTravelRequestDetails = () => {
         status: "",
     });
     const [requestsList, setRequestsList] = useState([]); // تخزين قائمة الطلبات
-     const [membersList, setmembersList] = useState([]); // تخزين قائمة الطلبات
+    const [membersList, setmembersList] = useState([]); // تخزين قائمة الطلبات
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const params = useParams();
@@ -100,7 +100,7 @@ const CompleteTravelRequestDetails = () => {
             updatedFields.nextRequest = null;
             updatedFields.nextRequestModel = null;
         }
-        
+
 
         if (Object.keys(updatedFields).length === 0) {
             alert("لم يتم تعديل أي بيانات");
@@ -118,19 +118,19 @@ const CompleteTravelRequestDetails = () => {
                     },
                 }
             );
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId},
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${token}`,
-                                    "Content-Type": "application/json",
-                                },
-                            })
+            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                })
             alert("تم حفظ التعديلات بنجاح");
         } catch (error) {
             alert("حدث خطأ أثناء الحفظ");
         }
     };
-const handleGenerateReport = async () => {
+    const handleGenerateReport = async () => {
         try {
             await axios.post(
                 `http://147.79.101.225:8888/admin/report/${requestId}`,
@@ -157,7 +157,7 @@ const handleGenerateReport = async () => {
             console.log(error)
             alert("حدث خطأ أثناء إنشاء التقرير");
         }
-    };    if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
+    }; if (loading) return <p className="loading-text">جاري تحميل البيانات...</p>;
     if (error) return <p className="error-text">{error}</p>;
 
     console.log(requestsList)
@@ -169,6 +169,8 @@ const handleGenerateReport = async () => {
                     <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                     <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
                     <p><strong>رقم الهاتف:</strong> {request.phone}</p>
+                    <p><strong>المنصب:</strong> {request.position}</p>
+                    <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                     <p><strong>الجنسية:</strong> {request.nationality}</p>
                     <p><strong>عدد الرحلات:</strong> {request.numOfTrip}</p>
                     <p><strong>رقم الهوية/جواز السفر:</strong> {request.IDOrPassportNumber}</p>
@@ -179,23 +181,23 @@ const handleGenerateReport = async () => {
                     <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
 
                     <p><strong>الحالة:</strong> {request.status === "pending" ? "قيد المراجعة" : request.status}</p>
-                    
+
                     <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
                     {request.status == "ended" ? (<div className="report-section">
-                    <h2>التقرير</h2>
-                    {request.reportName ? (
-                        <a
-                            href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="report-link"
-                        >
-                            عرض التقرير
-                        </a>
-                    ) : (
-                        <button onClick={handleGenerateReport}>إنشاء التقرير</button>
-                    )}
-                </div>) : (<div> </div>)}
+                        <h2>التقرير</h2>
+                        {request.reportName ? (
+                            <a
+                                href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="report-link"
+                            >
+                                عرض التقرير
+                            </a>
+                        ) : (
+                            <button onClick={handleGenerateReport}>إنشاء التقرير</button>
+                        )}
+                    </div>) : (<div> </div>)}
                 </div>
             )}
             <div className="extra-data">

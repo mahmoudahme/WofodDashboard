@@ -163,15 +163,17 @@ const BookingHotelsRequestDetails = () => {
     console.log(requestsList)
     return (
         <div className="request-container">
-            <h1 className="title">تفاصيل طلب المرافقه</h1>
+            <h1 className="title">تفاصيل حجز الفندق</h1>
 
             <div className="request-details">
                 {request && (
                     <div className="request-details">
-                        <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
                         <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-
+                        <p><strong>الاسم:</strong> {request.firstName} {request.familyName}</p>
                         <p><strong>رقم الهاتف:</strong> {request.phone}</p>
+
+                        <p><strong>المنصب:</strong> {request.position}</p>
+                        <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                         <p><strong>الجنسية:</strong> {request.nationality}</p>
                         <p><strong>الفندق:</strong> {request.hotel?.nameAr || "غير متوفر"}</p>
                         <p><strong>الخدمة:</strong> {request.serviceId?.nameAr || "غير متوفر"}</p>
@@ -184,21 +186,21 @@ const BookingHotelsRequestDetails = () => {
 
                         <p><strong>حالة الطلب:</strong> {request.status === "pending" ? "قيد الانتظار" : request.status}</p>
                         <Link to={`/dashboard/tracking/${request._id}`}>عرض الخريطه</Link>
-                         {request.status == "ended" ? (<div className="report-section">
-                    <h2>التقرير</h2>
-                    {request.reportName ? (
-                        <a
-                            href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="report-link"
-                        >
-                            عرض التقرير
-                        </a>
-                    ) : (
-                        <button onClick={handleGenerateReport}>إنشاء التقرير</button>
-                    )}
-                </div>) : (<div> </div>)}
+                        {request.status == "ended" ? (<div className="report-section">
+                            <h2>التقرير</h2>
+                            {request.reportName ? (
+                                <a
+                                    href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="report-link"
+                                >
+                                    عرض التقرير
+                                </a>
+                            ) : (
+                                <button onClick={handleGenerateReport}>إنشاء التقرير</button>
+                            )}
+                        </div>) : (<div> </div>)}
                     </div>
                 )}
             </div>

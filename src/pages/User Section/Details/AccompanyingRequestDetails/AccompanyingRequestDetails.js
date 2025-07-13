@@ -167,10 +167,11 @@ const AccompanyingRequestDetails = () => {
             <h1 className="title">تفاصيل طلب المرافقه</h1>
 
             <div className="request-details">
-                <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
                 <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
-
+                <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>
                 <p><strong>الهاتف:</strong> {request.phone}</p>
+                <p><strong>المنصب:</strong> {request.position}</p>
+                <p><strong>طريقة التواصل المفضلة:</strong> {request.bestContactWay}</p>
                 <p><strong>الجنسية:</strong> {request.nationality}</p>
                 <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
                 <p><strong>الخدمة:</strong> {request.serviceId?.nameAr}</p>
