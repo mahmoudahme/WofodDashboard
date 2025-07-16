@@ -39,7 +39,8 @@ const Header = () => {
       boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
       // borderRadius: "8px",
       // margin: "10px 20px",
-      position: "relative",
+      position: "sticky",
+      top: "0px",
       zIndex: 100,
       direction: "rtl"
 

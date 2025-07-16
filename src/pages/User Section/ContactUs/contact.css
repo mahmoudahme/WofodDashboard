@@ -1,99 +1,238 @@
 /* توجيه الصفحة بالكامل من اليمين لليسار */
 .contact-container {
-    padding: 20px;
-    background-color: #f7f7f7;
+    padding: 30px;
+    /* background: #1c1c1c; */
     min-height: 100vh;
     text-align: right;
     direction: rtl;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .contact-title {
     text-align: center;
-    color: #2C3E50;
-    text-shadow: 2px 1px 0px #D4AF37;
+    color: #D4AF37;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .messages-container {
     margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .no-messages {
     text-align: center;
-    color: gray;
+    color: #D4AF37;
     font-size: 1.2rem;
+    font-weight: 500;
+    padding: 40px 20px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #D4AF37;
 }
 
 .message-box {
-    background-color: #f5f5f5;
-    padding: 15px;
+    background: #2a2a2a;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.message-box:hover {
+    border-color: #D4AF37;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .avatar-placeholder {
     font-size: 2rem;
     margin-left: 15px;
+    color: #D4AF37;
+    background: #1c1c1c;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #D4AF37;
 }
 
 .message-content {
     flex-grow: 1;
+    margin-left: 15px;
 }
 
 .message-link {
     text-decoration: none;
-    color: black;
-    /* font-weight: bold; */
+    color: #D4AF37;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.message-link:hover {
+    color: #f4d03f;
+    transform: translateX(-5px);
+    text-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+}
+
+.message-link h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .message-date {
     font-size: 0.9rem;
-    color: gray;
+    color: #888;
+    margin-left: 15px;
+    white-space: nowrap;
+    font-weight: 400;
 }
 
 .icons {
     display: flex;
     align-items: center;
+    gap: 15px;
+
 }
 
-.icon {
+.icon2 {
     cursor: pointer;
-    font-size: 1.2rem;
-    margin-left: 10px;
+    font-size: 2.2rem;
+    transition: all 0.3s ease;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.viewed-icon {
-    color: green;
+.icon2:hover {
+    transform: scale(1.1);
+}
+
+.viewed-icon2 {
+    color: #4caf50;
+}
+
+.viewed-icon2:hover {
+    color: #66bb6a;
 }
 
 .not-viewed-icon {
-    color: #0268d4;
+    color: #2196f3;
 }
 
-.delete-icon {
-    color: red;
+.not-viewed-icon:hover {
+    color: #42a5f5;
+}
+
+.delete-icon2 {
+    color: #f44336;
+}
+
+.delete-icon2:hover {
+    color: #ef5350;
+    background: rgba(244, 67, 54, 0.1);
 }
 
 /* رسالة النجاح */
 .snackbar {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #4caf50;
+    bottom: 30px;
+    right: 30px;
+    background: #4caf50;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 15px 25px;
+    border-radius: 8px;
     font-size: 1rem;
-    animation: fadeInOut 3s ease-in-out;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideInFadeOut 4s ease-in-out;
+    z-index: 1000;
 }
 
-@keyframes fadeInOut {
-    0%, 100% {
+@keyframes slideInFadeOut {
+    0% {
         opacity: 0;
+        transform: translateX(100%);
     }
-    50% {
+    15%, 85% {
         opacity: 1;
+        transform: translateX(0);
     }
+    100% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* تحسينات إضافية للاستجابة */
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 20px 15px;
+    }
+    
+    .contact-title {
+        font-size: 1.8rem;
+    }
+    
+    .message-box {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .avatar-placeholder {
+        margin-left: 0;
+        margin-bottom: 5px;
+    }
+    
+    .message-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .icons {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+    
+    .message-date {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+}
+
+/* تحسين الانتقالات */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #D4AF37 #1c1c1c;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1c1c1c;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #D4AF37;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #f4d03f;
 }

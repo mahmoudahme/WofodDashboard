@@ -27,7 +27,7 @@ const Sidebar = () => {
       textAlign: "right",
       overflowY: "auto",
       position: "sticky",
-      top: "20px",
+      top: "150px",
       scrollbarWidth: "thin",
       scrollbarColor: "#D4AF37 #2c2c2c",
     },

@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, Button, TextField, Card, CardContent, Avatar } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  Button, 
+  TextField, 
+  Card, 
+  CardContent, 
+  Avatar,
+  CircularProgress,
+  IconButton,
+  Tooltip
+} from "@mui/material";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { CheckCircle, RemoveRedEye } from "@mui/icons-material";
-import Image from '../../../components/8c98994518b575bfd8c949e91d20548b.jpg'; // Import using relative path
+import { CheckCircle, RemoveRedEye, ArrowBack } from "@mui/icons-material";
+import Image from '../../../components/8c98994518b575bfd8c949e91d20548b.jpg';
 import "./contactusdetails.css";
 
 const ContactUsDetails = () => {
@@ -16,32 +27,42 @@ const ContactUsDetails = () => {
 
   const [messageData, setMessageData] = useState({});
   const [userData, setUserData] = useState({});
-  const [message, setMessage] = useState(""); // النص الذي سيتم إرساله كـ رد
-  const [sending, setSending] = useState(false); // حالة الإرسال
-  const messagesEndRef = useRef(null); // Reference to scroll to the bottom
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `http://147.79.101.225:8888/admin/contact/${Messageid}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setMessageData(response.data.Message);
-      setUserData(response.data.Message.UserId);
+      try {
+        const response = await axios.get(
+          `http://147.79.101.225:8888/admin/contact/${Messageid}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setMessageData(response.data.Message);
+        setUserData(response.data.Message.UserId);
+      } catch (err) {
+        console.error("حدث خطأ في جلب بيانات الرسالة:", err);
+        setError("فشل تحميل تفاصيل الرسالة");
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
-  }, [Messageid]);
+  }, [Messageid, token]);
 
   useEffect(() => {
-    // Scroll to the bottom when messages are updated or page is loaded
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messageData]); // Re-run this whenever messageData changes (i.e., new message)
+  }, [messageData]);
 
   const handleReply = async () => {
+    if (!message.trim()) return;
+    
     try {
       setSending(true);
       const response = await axios.post(
@@ -49,38 +70,70 @@ const ContactUsDetails = () => {
         { message, email: userData.email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log("Reply sent successfully:", response.data);
 
-      // بعد إرسال الرسالة بنجاح، أضف الرسالة الجديدة إلى الرسائل
       setMessageData(prevState => ({
         ...prevState,
         message: [
           ...prevState.message,
-          { messages: { message, Sender: "Admin" }, _id: Date.now() }, // أضف الرسالة الجديدة هنا
+          { messages: { message, Sender: "Admin" }, _id: Date.now() },
         ],
       }));
 
-      setMessage(""); // إعادة تعيين حقل الرسالة بعد الإرسال
-      navigate(`/dashboard/contact/${Messageid}`);
+      setMessage("");
     } catch (error) {
-      console.error("Error sending reply:", error);
+      console.error("حدث خطأ في إرسال الرد:", error);
+      setError("فشل إرسال الرد");
     } finally {
       setSending(false);
     }
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('ar-EG', options);
+  };
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh" flexDirection="column">
+        <Typography color="error" variant="h6" gutterBottom>
+          {error}
+        </Typography>
+        <Button variant="contained" onClick={() => window.location.reload()}>
+          إعادة المحاولة
+        </Button>
+      </Box>
+    );
+  }
+
   return (
     <Box
       sx={{
-        padding: "20px",
+        padding: { xs: "10px", md: "20px" },
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
         minHeight: "75vh",
         backgroundColor: "#f7f9fc",
-        direction: "rtl", // إضافة الاتجاه هنا
+        direction: "rtl",
       }}
     >
+      {/* <Box sx={{ mb: 2 }}>
+        <Tooltip title="العودة إلى الرسائل">
+          <IconButton onClick={() => navigate("/dashboard/contact")}>
+            <ArrowBack />
+          </IconButton>
+        </Tooltip>
+      </Box> */}
+
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -90,114 +143,161 @@ const ContactUsDetails = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            width: "70%",
+            width: { xs: "100%", md: "70%" },
             margin: "auto",
-            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
             borderRadius: "15px",
-            padding: "20px",
+            overflow: "hidden",
           }}
         >
-          {/* User info at the top */}
-          <CardContent sx={{ paddingBottom: "0" }}>
-            <Box display="flex" alignItems="center" gap="15px" marginBottom="20px">
-              <Avatar sx={{ bgcolor: "#1976d2", fontSize: "24px", width: 56, height: 56 }}>
-                {
-                  !userData?.image ? ( // Safely check if `image` exists
-                    userData?.name?.[0]
-                  ) : (
-                    <img
-                      src={`http://147.79.101.225:8080/uploads/LawyerData/${userData.image}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover", // Make the image cover the avatar area
-                        borderRadius: "50%",
-                      }}
-                      alt="User Avatar"
-                    />
-                  )
-                }
-              </Avatar>
-              <Box>
-                <Typography variant="h6">
-                {userData.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ wordBreak: "break-word" }}
-                >
-                  {userData.email}
-                </Typography>
-              </Box>
-            </Box>
-          </CardContent>
-
-          {/* Message container with scroll */}
-          <CardContent
+          {/* رأس البطاقة بمعلومات المستخدم */}
+          <Box
             sx={{
-              paddingTop: "0",
-              paddingBottom: "0",
-              height: "400px", // Maximum height for the messages area
-              overflowY: "auto", // Enable scrolling if messages overflow
-              flexGrow: 1, // Allow the messages section to expand and contract
-              backgroundImage: `url(${Image})`, // أو رابط الصورة
-              backgroundSize: '',
-              backgroundPosition: 'center',
-
+              backgroundColor: "#D4AF37",
+              color: "white",
+              padding: "16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "15px",
             }}
           >
-            {/* Displaying messages as a chat */}
-            {messageData.message?.map((msg) => (
-              <Box key={msg._id} sx={{ marginBottom: "10px", display: "flex" }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    padding: "10px",
-                    borderRadius: "10px",
-                    backgroundColor: msg.messages.Sender === "Admin" ? "#1976d2" : "#f0f0f0",
-                    color: msg.messages.Sender === "Admin" ? "white" : "black",
-                    textAlign: msg.messages.Sender === "Admin" ? "right" : "left",
-                    maxWidth: "80%",
-                    margin: msg.messages.Sender === "Admin" ? "5px 0 5px auto" : "5px auto 5px 0",
-                    direction: msg.messages.Sender === "Admin" ? "rtl" : "ltr",  // إضافة الاتجاه هنا
+            <Avatar 
+              sx={{ 
+                bgcolor: "white", 
+                color: "#D4AF37",
+                fontSize: "24px", 
+                width: 56, 
+                height: 56,
+                border: "2px solid white"
+              }}
+            >
+              {!userData?.image ? (
+                userData?.name?.[0]?.toUpperCase()
+              ) : (
+                <img
+                  src={`http://147.79.101.225:8080/uploads/LawyerData/${userData.image}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                  alt="صورة المستخدم"
+                />
+              )}
+            </Avatar>
+            <Box>
+              <Typography variant="h6" fontWeight="bold">
+                {userData.name || "مستخدم غير معروف"}
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                {userData.email}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* منطقة عرض الرسائل */}
+          <CardContent
+            sx={{
+              padding: "16px",
+              height: "400px",
+              overflowY: "auto",
+              backgroundImage: `url(${Image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundBlendMode: "lighten",
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+            }}
+          >
+            {messageData.message?.length > 0 ? (
+              messageData.message.map((msg) => (
+                <Box 
+                  key={msg._id} 
+                  sx={{ 
+                    mb: 2,
+                    display: "flex",
+                    justifyContent: msg.messages.Sender === "Admin" ? "flex-end" : "flex-start",
                   }}
                 >
-                  {msg.messages.message}
-                </Typography>
-              </Box>
-            ))}
-            <div ref={messagesEndRef} /> {/* Empty div to scroll to the bottom */}
-          </CardContent>
-
-          {/* Footer with message status */}
-          <CardContent sx={{ paddingTop: "0" }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body2" color="textSecondary">
-                Sent on: {messageData.Date}
+                  <Box
+                    sx={{
+                      maxWidth: "80%",
+                      padding: "12px 16px",
+                      borderRadius: msg.messages.Sender === "Admin" 
+                        ? "18px 18px 0 18px" 
+                        : "18px 18px 18px 0",
+                      backgroundColor: msg.messages.Sender === "Admin" 
+                        ? "#D4AF37" 
+                        : "#f0f0f0",
+                      color: msg.messages.Sender === "Admin" ? "white" : "text.primary",
+                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    <Typography variant="body1">
+                      {msg.messages.message}
+                    </Typography>
+                    <Typography 
+                      variant="caption" 
+                      display="block" 
+                      sx={{
+                        color: msg.messages.Sender === "Admin" 
+                          ? "rgba(255, 255, 255, 0.7)" 
+                          : "text.secondary",
+                        textAlign: "right",
+                        mt: 0.5,
+                      }}
+                    >
+                      {msg.messages.Sender === "Admin" ? "أنت" : userData.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))
+            ) : (
+              <Typography textAlign="center" color="text.secondary">
+                لا توجد رسائل
               </Typography>
-              {messageData.viewed ? (
-                <CheckCircle color="success" fontSize="large" />
-              ) : (
-                <RemoveRedEye color="action" fontSize="large" />
-              )}
-            </Box>
+            )}
+            <div ref={messagesEndRef} />
           </CardContent>
 
-          {/* Reply section */}
-          <CardContent>
-            <Typography variant="h6" marginBottom="10px">
-              Reply to Message
+          {/* تذييل البطاقة بحالة الرسالة */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "12px 16px",
+              borderTop: "1px solid #eee",
+              backgroundColor: "#f9f9f9",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {formatDate(messageData.Date)}
+            </Typography>
+            <Tooltip title={messageData.viewed ? "تمت المشاهدة" : "لم تتم المشاهدة بعد"}>
+              {messageData.viewed ? (
+                <CheckCircle color="success" />
+              ) : (
+                <RemoveRedEye color="disabled" />
+              )}
+            </Tooltip>
+          </Box>
+
+          {/* منطقة كتابة الرد */}
+          <Box sx={{ padding: "16px", borderTop: "1px solid #eee" }}>
+            <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+              اكتب ردك
             </Typography>
             <TextField
               fullWidth
               multiline
-              rows={4}
+              rows={3}
               variant="outlined"
-              placeholder="Write your reply here..."
+              placeholder="اكتب رسالتك هنا..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              sx={{ marginBottom: "20px" }}
+              sx={{ mb: 2 }}
+              disabled={sending}
             />
             <Button
               fullWidth
@@ -205,10 +305,16 @@ const ContactUsDetails = () => {
               color="primary"
               onClick={handleReply}
               disabled={sending || !message.trim()}
+              startIcon={sending ? <CircularProgress size={20} color="inherit" /> : null}
+              sx={{
+                py: 1.5,
+                fontWeight: "bold",
+                textTransform: "none",
+              }}
             >
-              {sending ? "Sending..." : "Send Reply"}
+              {sending ? "جاري الإرسال..." : "إرسال الرد"}
             </Button>
-          </CardContent>
+          </Box>
         </Card>
       </motion.div>
     </Box>
