@@ -58,7 +58,7 @@ const BookingTrainRequests = () => {
                     </button>
                     <div className="request-info">
                       <h2 className="client-name">{request.firstName} {request.familyName}</h2>
-                      <h4 className="client-name" style={{textAlign : "center"}}>{request.position}</h4>
+                      {request.position ? (<h4 className="client-name" style={{textAlign : "center"}}>{request.position}</h4>) : null}
                       <p className="order-number"><strong>رقم الطلب:</strong> {request.ordernumber}</p>
                       <p className="phone-number"><strong>رقم الهاتف:</strong> {request.phone}</p>
                       <p className="service-name"><strong>الخدمة:</strong> {request.serviceId.nameAr}</p>
