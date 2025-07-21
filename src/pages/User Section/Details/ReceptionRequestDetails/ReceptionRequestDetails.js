@@ -170,9 +170,9 @@ const ReceptionRequestDetails = () => {
             <h1 className="title">تفاصيل طلب الاستقبال</h1>
 
             <div className="request-details">
-                {
-                    request.image ? <img src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`} alt="طلب النقل" className="request-image" /> : ""
-                }
+                {/* {
+                    request.image && request.image !== "" ? <img src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`} alt="طلب النقل" className="request-image" /> : ""
+                } */}
                 <p><strong>رقم الطلب:</strong> {request.ordernumber}</p>
 
                 <p><strong>الإسم:</strong> {request.firstName} {request.familyName}</p>

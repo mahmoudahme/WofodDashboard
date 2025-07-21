@@ -182,6 +182,39 @@ const BookingHotelsRequestDetails = () => {
                         <p><strong>نوع الغرفه:</strong> {request.typeOfRoom.nameAr}</p>
                         <p><strong>عدد الليالي:</strong> {request.numOfNigths}</p>
                         <p><strong>عدد الأفراد:</strong> {request.numOfMember}</p>
+                        {request.numOfMember > 1 && request.membersData?.length > 0 && (
+                            <div className="members-data-table">
+                                <h3 className="members-table-title">بيانات الوفد:</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>الاسم الأول</th>
+                                            <th>اسم العائلة</th>
+                                            <th>رقم الهاتف</th>
+                                            <th>الوظيفه</th>
+                                            <th>الجنسية</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {request.membersData.map((member, index) => (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{member.firstName}</td>
+                                                <td>{member.familyName}</td>
+                                                <td>{member.phone || "غير متوفر"}</td>
+                                                <td>{member.position || "غير متوفرة"}</td>
+
+                                                <td>{member.nationality || "غير متوفرة"}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+
+                        <br></br>
                         <p><strong> معاد الخدمه :</strong> {request.dateOfRequest}</p>
 
                         <p><strong>حالة الطلب:</strong> {request.status === "pending" ? "قيد الانتظار" : request.status}</p>
