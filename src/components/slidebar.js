@@ -4,7 +4,8 @@ import {
   FaUserTie, FaDashcube, FaUserShield, FaServicestack, FaFly, FaCar,
   FaPlane, FaRoad, FaCity, FaMandalorian, FaNetworkWired,
   FaRegUserCircle, FaHotel, FaTrain, FaRestroom, FaChartArea,
-  FaJoomla, FaMoneyBill
+  FaJoomla, FaMoneyBill,
+  FaLayerGroup
 } from "react-icons/fa";
 
 const Sidebar = () => {
@@ -102,6 +103,7 @@ const Sidebar = () => {
     ...(userRole === "super_admin" || userRole === "user_Requests" ? [
       { label: "قسم الأعضاء" },
       { to: "/dashboard/members", label: "أعضاء وفود", icon: <FaUserShield /> },
+      { to: "/dashboard/groups", label: "المحادثات الجماعيه", icon: <FaLayerGroup /> },
       { to: "/dashboard/applications", label: "طلبات التوظيف", icon: <FaJoomla /> },
       { to: "/dashboard/training", label: "طلبات التدريب", icon: <FaJoomla /> },
       { to: "/dashboard/bill", label: "فواتير الأعضاء", icon: <FaMoneyBill /> },

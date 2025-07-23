@@ -30,6 +30,7 @@ function SignInForm() {
         window.localStorage.setItem("accessToken", response.data.token);
         window.localStorage.setItem("Fullname", response.data.details.name)
         window.localStorage.setItem("role", response.data.details.role);
+        window.localStorage.setItem("id", response.data.details._id);
       }
     } catch (error) {
       if (error.response) {
