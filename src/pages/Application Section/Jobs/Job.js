@@ -17,11 +17,11 @@ const Jobs = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://147.79.101.225:8888/admin/job", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/job", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.jobs);
-                const response3 = await axios.get("http://147.79.101.225:8888/admin/services", {
+                const response3 = await axios.get("http://147.93.53.128:8888/admin/services", {
                     headers: { Authorization: `Bearer ${token}` },
                   });
                   setServices(response3.data.Services);
@@ -40,7 +40,7 @@ const Jobs = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                "http://147.79.101.225:8888/admin/job",
+                "http://147.93.53.128:8888/admin/job",
                 formData,
                 { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
             );
@@ -59,7 +59,7 @@ const Jobs = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/job/${airlineToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/job/${airlineToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

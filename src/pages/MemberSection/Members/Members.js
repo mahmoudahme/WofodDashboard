@@ -25,10 +25,10 @@ const Members = () => {
       setLoading(true);
       try {
         const [membersResponse, jobsResponse] = await Promise.all([
-          axios.get("http://147.79.101.225:8888/admin/users/members", {
+          axios.get("http://147.93.53.128:8888/admin/users/members", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://147.79.101.225:8888/admin/job", {
+          axios.get("http://147.93.53.128:8888/admin/job", {
             headers: { Authorization: `Bearer ${token}` },
           })
         ]);
@@ -78,7 +78,7 @@ const Members = () => {
 
     try {
       const response = await axios.post(
-        "http://147.79.101.225:8888/member/auth/create", 
+        "http://147.93.53.128:8888/member/auth/create", 
         state, 
         {
           headers: {
@@ -96,7 +96,7 @@ const Members = () => {
         // إعادة تحميل البيانات بدلاً من إعادة تحميل الصفحة
         setTimeout(async () => {
           try {
-            const membersResponse = await axios.get("http://147.79.101.225:8888/admin/users/members", {
+            const membersResponse = await axios.get("http://147.93.53.128:8888/admin/users/members", {
               headers: { Authorization: `Bearer ${token}` },
             });
             setMembers(membersResponse.data.Members || []);

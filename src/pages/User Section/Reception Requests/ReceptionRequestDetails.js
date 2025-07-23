@@ -12,7 +12,7 @@ const ReceptionRequestDetails = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/reception", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/reception", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRequests(response.data.Requests);
@@ -29,7 +29,7 @@ const ReceptionRequestDetails = () => {
   // دالة لحذف الطلب بدون تأكيد
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/reception/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/reception/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -56,7 +56,7 @@ const ReceptionRequestDetails = () => {
             {
               request.image ? (
                 <img
-                  src={`http://147.79.101.225:8888/uploads/RequestData/${request.image}`}
+                  src={`http://147.93.53.128:8888/uploads/RequestData/${request.image}`}
                   alt="طلب"
                   className="request-image"
                 />

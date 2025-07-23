@@ -27,7 +27,7 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   // Base API URL
-  const API_BASE = "http://147.79.101.225:8888/admin";
+  const API_BASE = "http://147.93.53.128:8888/admin";
   const token = window.localStorage.getItem("accessToken");
 
   // Fetch all data

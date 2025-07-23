@@ -9,7 +9,7 @@ const Applications = () => {
     // Sample data for demonstration since we can't use localStorage or make actual API calls
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://147.79.101.225:8888/admin/applications", {
+            const response = await axios.get("http://147.93.53.128:8888/admin/applications", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setApplications(response.data.Requests);
@@ -48,7 +48,7 @@ const Applications = () => {
                             
                             <div className="employee-photo-container">
                                 <img 
-                                    src={`http://147.79.101.225:8888/uploads/Applications/${applicant.image}`}
+                                    src={`http://147.93.53.128:8888/uploads/Applications/${applicant.image}`}
                                     alt={applicant.name} 
                                     className="employee-photo" 
                                 />

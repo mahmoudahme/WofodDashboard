@@ -17,7 +17,7 @@ const Admins = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/users/admin", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/users/admin", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAdmin(response.data.AllAdmins);
@@ -41,7 +41,7 @@ const Admins = () => {
     const { fisrtName, lastName, email, password, selectedElement } = state;
 
     try {
-      const response = await axios.post("http://147.79.101.225:8888/admin/auth/register/", state);
+      const response = await axios.post("http://147.93.53.128:8888/admin/auth/register/", state);
       if (response.status === 200) {
         setMessage(response.data.Message);
         setTimeout(() => {

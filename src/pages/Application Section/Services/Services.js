@@ -22,7 +22,7 @@ const Services = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://147.79.101.225:8888/admin/services", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/services", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setServices(response.data.Services);
@@ -52,7 +52,7 @@ const Services = () => {
         formDataToSend.append("image", formData.image);
 
         try {
-            const response = await axios.post("http://147.79.101.225:8888/admin/services", formDataToSend, {
+            const response = await axios.post("http://147.93.53.128:8888/admin/services", formDataToSend, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
@@ -73,7 +73,7 @@ const Services = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/services/${serviceToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/services/${serviceToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -93,7 +93,7 @@ const Services = () => {
                 <div className="services-list">
                     {services.map((service) => (
                         <div className="service-card" key={service._id}>
-                            <img src={`http://147.79.101.225:8888/uploads/Services/${service.image}`} alt={service.nameEn} className="service-image" />
+                            <img src={`http://147.93.53.128:8888/uploads/Services/${service.image}`} alt={service.nameEn} className="service-image" />
                             <Link to={`${service._id}`}><h2>{service.nameAr} - {service.nameEn}</h2></Link>
                             <p>{service.descriptionAr}</p>
                             <p>{service.descriptionEn}</p>

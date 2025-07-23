@@ -21,7 +21,7 @@ const Contact = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get("http://147.79.101.225:8888/admin/contact", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/contact", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setMessages(response.data.Messages || []);
@@ -39,7 +39,7 @@ const Contact = () => {
     const handleDelete = async (id) => {
         try {
             setDeleteLoading(id);
-            const response = await axios.delete(`http://147.79.101.225:8888/admin/contact/${id}`, {
+            const response = await axios.delete(`http://147.93.53.128:8888/admin/contact/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

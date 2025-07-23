@@ -13,7 +13,7 @@ const TransportRequests = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://147.79.101.225:8888/admin/request/transport",
+          "http://147.93.53.128:8888/admin/request/transport",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +31,7 @@ const TransportRequests = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/transport/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/transport/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

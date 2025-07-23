@@ -13,7 +13,7 @@ const BookingHotelsRequest = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://147.79.101.225:8888/admin/request/hotel",
+          "http://147.93.53.128:8888/admin/request/hotel",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -30,7 +30,7 @@ const BookingHotelsRequest = () => {
   }, [token]);
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/hotel/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/hotel/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -13,7 +13,7 @@ const TrainingApplication = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://147.79.101.225:8888/admin/traning", {
+            const response = await axios.get("http://147.93.53.128:8888/admin/traning", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setApplications(response.data.Requests);
@@ -26,7 +26,7 @@ const TrainingApplication = () => {
         if (!window.confirm("هل أنت متأكد من حذف هذا المتقدم؟")) return;
 
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/traning/${id}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/traning/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

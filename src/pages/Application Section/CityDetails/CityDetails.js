@@ -23,7 +23,7 @@ const CityDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://147.79.101.225:8888/admin/city/${airlineId}`, {
+                const response = await axios.get(`http://147.93.53.128:8888/admin/city/${airlineId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.city);
@@ -49,7 +49,7 @@ const CityDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://147.79.101.225:8888/admin/city/${airlineId}`, formData, {
+            await axios.put(`http://147.93.53.128:8888/admin/city/${airlineId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

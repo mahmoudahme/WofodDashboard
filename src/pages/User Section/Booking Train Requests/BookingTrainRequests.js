@@ -13,7 +13,7 @@ const BookingTrainRequests = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://147.79.101.225:8888/admin/request/train",
+          "http://147.93.53.128:8888/admin/request/train",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -30,7 +30,7 @@ const BookingTrainRequests = () => {
   }, [token]);
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/train/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/train/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

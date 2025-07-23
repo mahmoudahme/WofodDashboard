@@ -19,7 +19,7 @@ const Bill = () => {
     const fetchBills = async () => {
         try {
             setLoading(true);
-            const response = await axios.get("http://147.79.101.225:8888/admin/bill", {
+            const response = await axios.get("http://147.93.53.128:8888/admin/bill", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -45,7 +45,7 @@ const Bill = () => {
             setDeleteLoading(billToDelete._id);
             
             // استبدل هذا الـ URL بالـ API endpoint الصحيح للحذف
-            await axios.delete(`http://147.79.101.225:8888/admin/bill/${billToDelete._id}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/bill/${billToDelete._id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -103,7 +103,7 @@ const Bill = () => {
                     <div key={bill._id} className="bill-card">
                         <div className="bill-image-container">
                             <img 
-                                src={`http://147.79.101.225:8888/uploads/Bills/${bill.image}`} 
+                                src={`http://147.93.53.128:8888/uploads/Bills/${bill.image}`} 
                                 alt="bill" 
                                 className="bill-image"
                                 onError={(e) => {

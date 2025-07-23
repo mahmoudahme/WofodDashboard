@@ -12,7 +12,7 @@ const CompleteTravelRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/complete", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/complete", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRequests(response.data.Requests);
@@ -28,7 +28,7 @@ const CompleteTravelRequests = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/complete/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/complete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

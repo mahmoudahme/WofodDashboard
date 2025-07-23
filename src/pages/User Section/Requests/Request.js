@@ -18,7 +18,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/services", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/services", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setServices(response.data.Services);
@@ -29,7 +29,7 @@ const Services = () => {
 
     const fetchReceptionRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/reception", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/reception", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -42,7 +42,7 @@ const Services = () => {
     };
     const fetchTransportationRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/transport", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/transport", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -55,7 +55,7 @@ const Services = () => {
     };
     const fetchCompleteTravelRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/complete", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/complete", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -68,7 +68,7 @@ const Services = () => {
     };
     const fetchAccompanyingRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/accompanying", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/accompanying", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -81,7 +81,7 @@ const Services = () => {
     };
     const fetchBookingTravelRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/travel", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/travel", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -94,7 +94,7 @@ const Services = () => {
     };
     const fetchBookingHotelsRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/hotel", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/hotel", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -107,7 +107,7 @@ const Services = () => {
     };
     const fetchBookingTrainsRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/train", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/train", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -120,7 +120,7 @@ const Services = () => {
     };
     const fetchFullProgramRequests = async () => {
       try {
-        const response = await axios.get("http://147.79.101.225:8888/admin/request/program", {
+        const response = await axios.get("http://147.93.53.128:8888/admin/request/program", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -167,7 +167,7 @@ const Services = () => {
           >
             <div className="image-container">
               <img
-                src={`http://147.79.101.225:8888/uploads/Services/${service.image}`}
+                src={`http://147.93.53.128:8888/uploads/Services/${service.image}`}
                 alt={service.nameAr}
                 className="service-image"
               />

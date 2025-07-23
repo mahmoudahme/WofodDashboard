@@ -27,7 +27,7 @@ const JobsDetials = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://147.79.101.225:8888/admin/job/${airlineId}`, {
+                const response = await axios.get(`http://147.93.53.128:8888/admin/job/${airlineId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.job);
@@ -37,7 +37,7 @@ const JobsDetials = () => {
                     serviceId: response.data.job.serviceId._id,
                 });
                 
-                const response3 = await axios.get("http://147.79.101.225:8888/admin/services", {
+                const response3 = await axios.get("http://147.93.53.128:8888/admin/services", {
                     headers: { Authorization: `Bearer ${token}` },
                   });
                   setServices(response3.data.Services);
@@ -59,7 +59,7 @@ const JobsDetials = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://147.79.101.225:8888/admin/job/${airlineId}`, formData, {
+            await axios.put(`http://147.93.53.128:8888/admin/job/${airlineId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

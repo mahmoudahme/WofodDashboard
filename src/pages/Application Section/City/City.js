@@ -17,7 +17,7 @@ const City = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://147.79.101.225:8888/admin/city", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/city", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.Cities);
@@ -36,7 +36,7 @@ const City = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                "http://147.79.101.225:8888/admin/city",
+                "http://147.93.53.128:8888/admin/city",
                 formData,
                 { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
             );
@@ -55,7 +55,7 @@ const City = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/city/${airlineToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/city/${airlineToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

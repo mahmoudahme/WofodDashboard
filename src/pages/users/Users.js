@@ -17,7 +17,7 @@ const Users = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://147.79.101.225:8888/admin/users/users",
+          "http://147.93.53.128:8888/admin/users/users",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -59,7 +59,7 @@ const Users = () => {
 
     try {
       const response = await axios.post(
-        `http://147.79.101.225:8888/admin/report/user/${selectedUser}`,
+        `http://147.93.53.128:8888/admin/report/user/${selectedUser}`,
         { dateOfRequest: reportDate },
         {
           headers: { Authorization: `Bearer ${token}` },

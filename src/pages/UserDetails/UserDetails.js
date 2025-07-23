@@ -22,7 +22,7 @@ const UserDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://147.79.101.225:8888/admin/users/users/${userId}`,
+                const response = await axios.get(`http://147.93.53.128:8888/admin/users/users/${userId}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -42,7 +42,7 @@ const UserDetails = () => {
 
         try {
             const response = await axios.put(
-                `http://147.79.101.225:8888/admin/users/users/${userId}`,
+                `http://147.93.53.128:8888/admin/users/users/${userId}`,
                 userData,
                 {
                     headers: { Authorization: `Bearer ${token}` },
@@ -64,7 +64,7 @@ const UserDetails = () => {
 
         try {
             const response = await axios.delete(
-                `http://147.79.101.225:8888/admin/users/users/${userId}`,
+                `http://147.93.53.128:8888/admin/users/users/${userId}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -95,7 +95,7 @@ const handleReportSubmit = async (event) => {
 
     try {
         const response = await axios.post(
-            `http://147.79.101.225:8888/admin/report/user/${userId}`,
+            `http://147.93.53.128:8888/admin/report/user/${userId}`,
             { dateOfRequest: reportDate },
             {
                 headers: { Authorization: `Bearer ${token}` },
@@ -202,7 +202,7 @@ const handleReportSubmit = async (event) => {
                         {userData.reports.slice().reverse().map((report, index) => (
                             <li key={index} className="report-item">
                                 <a
-                                    href={`http://147.79.101.225:8888/uploads/reports/${report}`}
+                                    href={`http://147.93.53.128:8888/uploads/reports/${report}`}
                                     className="report-link"
                                     target="_blank"
                                     rel="noopener noreferrer"

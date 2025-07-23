@@ -30,7 +30,7 @@ const MapComponent = () => {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://147.79.101.225:8888/admin/location/${requestId}`);
+        const res = await axios.get(`http://147.93.53.128:8888/admin/location/${requestId}`);
         const data = res.data.locations.location;
         if (!Array.isArray(data) || data.length === 0) return;
 
@@ -111,7 +111,7 @@ const MapComponent = () => {
 
     fetchData();
 
-    const socket = io('http://147.79.101.225:8888');
+    const socket = io('http://147.93.53.128:8888');
     socket.on('locationUpdate', (newLocation) => {
       setLocations(prev => {
         const updated = [...prev, newLocation];

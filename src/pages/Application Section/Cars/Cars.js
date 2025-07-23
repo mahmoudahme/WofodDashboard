@@ -27,12 +27,12 @@ const Cars = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const carsResponse = await axios.get("http://147.79.101.225:8888/admin/cars", {
+                const carsResponse = await axios.get("http://147.93.53.128:8888/admin/cars", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setCars(carsResponse.data.cars);
 
-                const membersResponse = await axios.get("http://147.79.101.225:8888/admin/users/members", {
+                const membersResponse = await axios.get("http://147.93.53.128:8888/admin/users/members", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -74,7 +74,7 @@ const Cars = () => {
         formDataToSend.append("driverPhone", formData.driverPhone);
 
         try {
-            const response = await axios.post("http://147.79.101.225:8888/admin/cars", formDataToSend, {
+            const response = await axios.post("http://147.93.53.128:8888/admin/cars", formDataToSend, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
@@ -103,7 +103,7 @@ const Cars = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/cars/${carsToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/cars/${carsToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -124,7 +124,7 @@ const Cars = () => {
                     {cars.map((car) => (
                         <div className="cars-card" key={car._id}>
                             <img
-                                src={`http://147.79.101.225:8888/uploads/Cars/${car.image}`}
+                                src={`http://147.93.53.128:8888/uploads/Cars/${car.image}`}
                                 alt={car.nameEn}
                                 className="cars-image"
                             />

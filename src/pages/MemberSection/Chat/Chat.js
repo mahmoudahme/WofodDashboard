@@ -4,7 +4,7 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import "./Chat.css";
 
-const socket = io("http://147.79.101.225:8888"); // أو حسب URL السيرفر بتاعك
+const socket = io("http://147.93.53.128:8888"); // أو حسب URL السيرفر بتاعك
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -35,7 +35,7 @@ const Chat = () => {
         const fetchChat = async () => {
             try {
                 const res = await axios.get(
-                    `http://147.79.101.225:8888/admin/chat/${memberId}`,
+                    `http://147.93.53.128:8888/admin/chat/${memberId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ const Chat = () => {
 
         socket.emit("sendMessage", messageData);
 
-        await axios.post("http://147.79.101.225:8888/admin/send-message", { memberId: memberId, messageFromAdmin: messageData.message },
+        await axios.post("http://147.93.53.128:8888/admin/send-message", { memberId: memberId, messageFromAdmin: messageData.message },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

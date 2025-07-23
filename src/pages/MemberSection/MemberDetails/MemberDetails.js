@@ -23,7 +23,7 @@ const MemberDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://147.79.101.225:8888/admin/users/members/${memberId}`,
+        const response = await axios.get(`http://147.93.53.128:8888/admin/users/members/${memberId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +31,7 @@ const MemberDetails = () => {
         setmemberDataa(response.data.member);
         setIsLoading(false);
 
-        const response2 = await axios.get("http://147.79.101.225:8888/admin/job", {
+        const response2 = await axios.get("http://147.93.53.128:8888/admin/job", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setJobs(response2.data.jobs);
@@ -47,7 +47,7 @@ const MemberDetails = () => {
 
     try {
       const response = await axios.put(
-        `http://147.79.101.225:8888/admin/users/members/${memberId}`,
+        `http://147.93.53.128:8888/admin/users/members/${memberId}`,
         memberData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -64,7 +64,7 @@ const MemberDetails = () => {
 
     try {
       const response = await axios.delete(
-        `http://147.79.101.225:8888/admin/users/members/${memberId}`,
+        `http://147.93.53.128:8888/admin/users/members/${memberId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

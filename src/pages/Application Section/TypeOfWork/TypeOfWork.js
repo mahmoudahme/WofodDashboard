@@ -17,7 +17,7 @@ const TypeOfWork = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://147.79.101.225:8888/admin/typeofwork", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/typeofwork", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.TypeOfWorks);
@@ -36,7 +36,7 @@ const TypeOfWork = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                "http://147.79.101.225:8888/admin/typeofwork",
+                "http://147.93.53.128:8888/admin/typeofwork",
                 formData,
                 { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
             );
@@ -55,7 +55,7 @@ const TypeOfWork = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/typeofwork/${airlineToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/typeofwork/${airlineToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

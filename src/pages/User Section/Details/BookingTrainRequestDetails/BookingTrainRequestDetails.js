@@ -26,20 +26,20 @@ const BookingTrainRequestDetails = () => {
             try {
                 // جلب بيانات الطلب الأساسي
                 const response = await axios.get(
-                    `http://147.79.101.225:8888/admin/request/train/${requestId}`,
+                    `http://147.93.53.128:8888/admin/request/train/${requestId}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setRequest(response.data.request);
                 setRequestsList(response.data.AnotherRequests); // تخزين الطلبات في القائمة
                 setLoading(false);
 
-                const response2 = await axios.get("http://147.79.101.225:8888/admin/users/members", {
+                const response2 = await axios.get("http://147.93.53.128:8888/admin/users/members", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
                 setLoading(false);
                 const response3 = await axios.get(
-                    `http://147.79.101.225:8888/admin/request/train`,
+                    `http://147.93.53.128:8888/admin/request/train`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setSelectedRequest(response3.data.Requests);
@@ -108,7 +108,7 @@ const BookingTrainRequestDetails = () => {
 
         try {
             await axios.put(
-                `http://147.79.101.225:8888/admin/request/train/${requestId}`,
+                `http://147.93.53.128:8888/admin/request/train/${requestId}`,
                 updatedFields,
                 {
                     headers: {
@@ -117,7 +117,7 @@ const BookingTrainRequestDetails = () => {
                     },
                 }
             );
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
+            await axios.post("http://147.93.53.128:8888/admin/send-notification", { memberId: extraData.memberId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -132,7 +132,7 @@ const BookingTrainRequestDetails = () => {
     const handleGenerateReport = async () => {
         try {
             await axios.post(
-                `http://147.79.101.225:8888/admin/report/${requestId}`,
+                `http://147.93.53.128:8888/admin/report/${requestId}`,
                 {},
                 {
                     headers: {
@@ -142,7 +142,7 @@ const BookingTrainRequestDetails = () => {
             );
 
             const updatedRequest = await axios.get(
-                `http://147.79.101.225:8888/admin/request/reception/${requestId}`,
+                `http://147.93.53.128:8888/admin/request/reception/${requestId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -225,7 +225,7 @@ const BookingTrainRequestDetails = () => {
                             <h2>التقرير</h2>
                             {request.reportName ? (
                                 <a
-                                    href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                                    href={`http://147.93.53.128:8888/uploads/reports/${request.reportName}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="report-link"

@@ -16,7 +16,7 @@ const FullProgramDetails = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `http://147.79.101.225:8888/admin/request/program/${requestId}`,
+                    `http://147.93.53.128:8888/admin/request/program/${requestId}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setRequest(response.data.request);
@@ -32,7 +32,7 @@ const FullProgramDetails = () => {
     const handleStatusChange = async (newStatus) => {
         try {
             await axios.put(
-                `http://147.79.101.225:8888/admin/request/program/${requestId}`,
+                `http://147.93.53.128:8888/admin/request/program/${requestId}`,
                 { status: newStatus },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

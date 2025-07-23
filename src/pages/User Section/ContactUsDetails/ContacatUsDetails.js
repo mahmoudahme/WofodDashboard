@@ -37,7 +37,7 @@ const ContactUsDetails = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://147.79.101.225:8888/admin/contact/${Messageid}`,
+          `http://147.93.53.128:8888/admin/contact/${Messageid}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -66,7 +66,7 @@ const ContactUsDetails = () => {
     try {
       setSending(true);
       const response = await axios.post(
-        `http://147.79.101.225:8888/admin/contact/${Messageid}`,
+        `http://147.93.53.128:8888/admin/contact/${Messageid}`,
         { message, email: userData.email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -175,7 +175,7 @@ const ContactUsDetails = () => {
                 userData?.name?.[0]?.toUpperCase()
               ) : (
                 <img
-                  src={`http://147.79.101.225:8080/uploads/LawyerData/${userData.image}`}
+                  src={`http://147.93.53.128:8080/uploads/LawyerData/${userData.image}`}
                   style={{
                     width: "100%",
                     height: "100%",

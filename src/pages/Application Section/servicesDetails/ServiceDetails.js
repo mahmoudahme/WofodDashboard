@@ -23,7 +23,7 @@ const ServiceDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://147.79.101.225:8888/admin/services/${serviceId}`, {
+                const response = await axios.get(`http://147.93.53.128:8888/admin/services/${serviceId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setService(response.data.service);
@@ -55,7 +55,7 @@ const ServiceDetails = () => {
         }
 
         try {
-            await axios.put(`http://147.79.101.225:8888/admin/services/${serviceId}`, formDataToSend, {
+            await axios.put(`http://147.93.53.128:8888/admin/services/${serviceId}`, formDataToSend, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
@@ -74,7 +74,7 @@ const ServiceDetails = () => {
         <div className="service-details-container">
             <ToastContainer />
             <h2>تعديل الخدمة</h2>
-            <img src={`http://147.79.101.225:8888/uploads/Services/${service.image}`} alt="Service" className="service-image" />
+            <img src={`http://147.93.53.128:8888/uploads/Services/${service.image}`} alt="Service" className="service-image" />
             <form className="service-form" onSubmit={handleSubmit}>
                 <label>اسم الخدمة بالعربية</label>
                 <input type="text" name="nameAr" value={service.nameAr} onChange={handleChange} required />

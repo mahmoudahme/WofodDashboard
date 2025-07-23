@@ -13,7 +13,7 @@ const AccompanyingRequest = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://147.79.101.225:8888/admin/request/accompanying",
+          "http://147.93.53.128:8888/admin/request/accompanying",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +31,7 @@ const AccompanyingRequest = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://147.79.101.225:8888/admin/request/accompanying/${id}`, {
+      await axios.delete(`http://147.93.53.128:8888/admin/request/accompanying/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

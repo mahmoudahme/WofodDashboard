@@ -17,7 +17,7 @@ const PlaneClass = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://147.79.101.225:8888/admin/class", {
+                const response = await axios.get("http://147.93.53.128:8888/admin/class", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setAirline(response.data.class);
@@ -36,7 +36,7 @@ const PlaneClass = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                "http://147.79.101.225:8888/admin/class",
+                "http://147.93.53.128:8888/admin/class",
                 formData,
                 { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
             );
@@ -55,7 +55,7 @@ const PlaneClass = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://147.79.101.225:8888/admin/class/${airlineToDelete}`, {
+            await axios.delete(`http://147.93.53.128:8888/admin/class/${airlineToDelete}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

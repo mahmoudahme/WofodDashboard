@@ -23,7 +23,7 @@ const ArrivalHallDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://147.79.101.225:8888/admin/arrivalhall/${arrivalhallId}`, {
+                const response = await axios.get(`http://147.93.53.128:8888/admin/arrivalhall/${arrivalhallId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setArrivalhall(response.data.arrivalHall);
@@ -49,7 +49,7 @@ const ArrivalHallDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://147.79.101.225:8888/admin/arrivalhall/${arrivalhallId}`, formData, {
+            await axios.put(`http://147.93.53.128:8888/admin/arrivalhall/${arrivalhallId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

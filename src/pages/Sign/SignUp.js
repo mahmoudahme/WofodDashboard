@@ -25,7 +25,7 @@ function SignUpForm() {
 
     const { fisrtName , lastName , email, password } = state;
     try {
-      const response = await axios.post("http://147.79.101.225:8888/api/auth/admin/register/" , state )
+      const response = await axios.post("http://147.93.53.128:8888/api/auth/admin/register/" , state )
     
       if (response.status === 200) {
         setMessage(response.data.Message); 

@@ -26,19 +26,19 @@ const BookingHotelsRequestDetails = () => {
             try {
                 // جلب بيانات الطلب الأساسي
                 const response = await axios.get(
-                    `http://147.79.101.225:8888/admin/request/hotel/${requestId}`,
+                    `http://147.93.53.128:8888/admin/request/hotel/${requestId}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setRequest(response.data.request);
                 setRequestsList(response.data.AnotherRequests); // تخزين الطلبات في القائمة
                 setLoading(false);
 
-                const response2 = await axios.get("http://147.79.101.225:8888/admin/users/members", {
+                const response2 = await axios.get("http://147.93.53.128:8888/admin/users/members", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setmembersList(response2.data.Members);
                 const response3 = await axios.get(
-                    `http://147.79.101.225:8888/admin/request/hotel`,
+                    `http://147.93.53.128:8888/admin/request/hotel`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setSelectedRequest(response3.data.Requests);
@@ -108,7 +108,7 @@ const BookingHotelsRequestDetails = () => {
 
         try {
             await axios.put(
-                `http://147.79.101.225:8888/admin/request/hotel/${requestId}`,
+                `http://147.93.53.128:8888/admin/request/hotel/${requestId}`,
                 updatedFields,
                 {
                     headers: {
@@ -118,7 +118,7 @@ const BookingHotelsRequestDetails = () => {
                 }
             );
 
-            await axios.post("http://147.79.101.225:8888/admin/send-notification", { memberId: extraData.memberId },
+            await axios.post("http://147.93.53.128:8888/admin/send-notification", { memberId: extraData.memberId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ const BookingHotelsRequestDetails = () => {
     const handleGenerateReport = async () => {
         try {
             await axios.post(
-                `http://147.79.101.225:8888/admin/report/${requestId}`,
+                `http://147.93.53.128:8888/admin/report/${requestId}`,
                 {},
                 {
                     headers: {
@@ -143,7 +143,7 @@ const BookingHotelsRequestDetails = () => {
             );
 
             const updatedRequest = await axios.get(
-                `http://147.79.101.225:8888/admin/request/reception/${requestId}`,
+                `http://147.93.53.128:8888/admin/request/reception/${requestId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -223,7 +223,7 @@ const BookingHotelsRequestDetails = () => {
                             <h2>التقرير</h2>
                             {request.reportName ? (
                                 <a
-                                    href={`http://147.79.101.225:8888/uploads/reports/${request.reportName}`}
+                                    href={`http://147.93.53.128:8888/uploads/reports/${request.reportName}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="report-link"
