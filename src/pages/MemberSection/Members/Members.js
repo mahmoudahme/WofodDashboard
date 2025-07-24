@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./Members.css"
+import "./Members.css";
 import { FiMessageCircle } from 'react-icons/fi';
 
 const Members = () => {
@@ -11,12 +11,13 @@ const Members = () => {
   const [submitting, setSubmitting] = useState(false);
   const [state, setState] = useState({
     typeOfUser: "",
+    image: null,
     name: "",
     phone: "",
     password: "",
   });
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // success or error
+  const [messageType, setMessageType] = useState(""); // success أو error
 
   const token = window.localStorage.getItem("accessToken");
 
@@ -35,7 +36,6 @@ const Members = () => {
 
         setMembers(membersResponse.data.Members || []);
         setJobs(jobsResponse.data.jobs || []);
-
       } catch (error) {
         console.error("Error fetching data:", error);
         setMessage("حدث خطأ في تحميل البيانات");
@@ -55,21 +55,33 @@ const Members = () => {
   }, [token]);
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setState(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const { name, value, files } = evt.target;
+    if (name === "image") {
+      setState((prevState) => ({
+        ...prevState,
+        image: files[0],
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const resetForm = () => {
     setState({
       typeOfUser: "",
+      image: null,
       name: "",
       phone: "",
       password: "",
     });
+    document.querySelector('input[name="image"]').value = null;
   };
+
+  const validatePhone = (phone) => /^[0-9]{10,15}$/.test(phone);
+  const validatePassword = (password) => password.length >= 6;
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
@@ -77,14 +89,23 @@ const Members = () => {
     setMessage("");
 
     try {
+      const formData = new FormData();
+      formData.append("name", state.name);
+      formData.append("phone", state.phone);
+      formData.append("password", state.password);
+      formData.append("typeOfUser", state.typeOfUser);
+      if (state.image) {
+        formData.append("image", state.image);
+      }
+
       const response = await axios.post(
-        "http://147.93.53.128:8888/member/auth/create", 
-        state, 
+        "http://147.93.53.128:8888/member/auth/create",
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
@@ -92,8 +113,7 @@ const Members = () => {
         setMessage(response.data.Message || "تم إنشاء الحساب بنجاح");
         setMessageType("success");
         resetForm();
-        
-        // إعادة تحميل البيانات بدلاً من إعادة تحميل الصفحة
+
         setTimeout(async () => {
           try {
             const membersResponse = await axios.get("http://147.93.53.128:8888/admin/users/members", {
@@ -124,15 +144,6 @@ const Members = () => {
     }
   };
 
-  const validatePhone = (phone) => {
-    const phoneRegex = /^[0-9]{10,15}$/;
-    return phoneRegex.test(phone);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 6;
-  };
-
   if (loading) {
     return (
       <div className="loading-container">
@@ -144,13 +155,8 @@ const Members = () => {
   return (
     <div>
       <h1 className="AdminPage">موظفين وفود</h1>
-      
-      {/* عرض الرسائل */}
-      {message && (
-        <div className={`message ${messageType}`}>
-          {message}
-        </div>
-      )}
+
+      {message && <div className={`message ${messageType}`}>{message}</div>}
 
       <div className="table-wrapper">
         <table className="fl-table">
@@ -158,6 +164,7 @@ const Members = () => {
             <tr>
               <th>الدردشة</th>
               <th>رمز تعريفي</th>
+              <th>الصوره</th>
               <th>الاسم</th>
               <th>الوظيفة</th>
               <th>رقم الهاتف</th>
@@ -183,12 +190,23 @@ const Members = () => {
                       {member._id}
                     </Link>
                   </td>
+                  <td>
+                    {member.image ? (
+                      <img
+                        src={`http://147.93.53.128:8888/uploads/MemberImages/${member.image}`}
+                        alt={member.name}
+                        className="member-image"
+                      />
+                    ) : (
+                      <span className="no-image">لا توجد صورة</span>
+                    )}
+                  </td>
                   <td>{member.name}</td>
                   <td>{member.typeOfUser?.nameAr || "غير محدد"}</td>
                   <td>{member.phone}</td>
                   <td>{member.email}</td>
                   <td>
-                    <span className={`status ${member.deviceIP ? 'registered' : 'not-registered'}`}>
+                    <span className={`status ${member.deviceIP ? "registered" : "not-registered"}`}>
                       {member.deviceIP ? "مسجل" : "غير مسجل"}
                     </span>
                   </td>
@@ -196,7 +214,7 @@ const Members = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="no-data">
+                <td colSpan="8" className="no-data">
                   لا توجد بيانات للعرض
                 </td>
               </tr>
@@ -209,7 +227,17 @@ const Members = () => {
         <form id="contact" onSubmit={handleOnSubmit}>
           <h3>إنشاء حساب عضو جديد</h3>
           <br />
-          
+          <fieldset>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleChange}
+              placeholder="صورة العضو"
+              tabIndex="5"
+              required
+            />
+          </fieldset>
           <fieldset>
             <input
               type="text"
@@ -274,12 +302,12 @@ const Members = () => {
           </fieldset>
 
           <fieldset>
-            <button 
-              name="submit" 
-              type="submit" 
-              id="contact-submit" 
+            <button
+              name="submit"
+              type="submit"
+              id="contact-submit"
               disabled={submitting}
-              className={submitting ? 'loading' : ''}
+              className={submitting ? "loading" : ""}
             >
               {submitting ? "جاري الإنشاء..." : "إنشاء حساب"}
             </button>

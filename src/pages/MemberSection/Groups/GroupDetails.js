@@ -134,6 +134,23 @@ const GroupDetails = () => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
+            const token = localStorage.getItem("accessToken");
+            group.members.map(async(member) => {
+                await axios.post("http://147.93.53.128:8888/admin/send-group/", {groupName: group.name, memberId: member._id, messageFromAdmin: newMessage.trim()},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then(() => {
+                        console.log("Notification sent successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error sending notification:", error);
+                    });
+            });
+
         }
     };
 
@@ -150,14 +167,21 @@ const GroupDetails = () => {
         });
     };
 
-    const getSenderName = (message) => {
+    const getSenderInfo = (message) => {
         if (message.senderModel === 'Admin') {
-            return group?.admin?.name || 'المدير';
+            return {
+                name: group?.admin?.name || 'المدير',
+                image: group?.admin?.image || '/default-admin.png'  // ضع صورة افتراضية إذا مفيش صورة
+            };
         }
 
         const member = group?.members?.find(m => m._id === message.sender);
-        return member?.name || 'عضو';
+        return {
+            name: member?.name || 'عضو',
+            image: member?.image || '/default-member.png'  // صورة افتراضية للعضو
+        };
     };
+
 
     if (loading) {
         return (
@@ -314,7 +338,17 @@ const GroupDetails = () => {
                                         border: '1px solid rgba(212, 175, 55, 0.3)'
                                     }}
                                 >
-                                    👤 {member.name}
+                                    <img
+                                        src={`http://147.93.53.128:8888/uploads/MemberImages/${member.image}`}
+                                        alt={member.name}
+                                        style={{
+                                            width: '28px',
+                                            height: '28px',
+                                            borderRadius: '50%',
+                                            objectFit: 'cover',
+                                            border: '1px solid #ccc'
+                                        }}
+                                    /> {member.name}
                                 </span>
                             ))}
                         </div>
@@ -369,8 +403,27 @@ const GroupDetails = () => {
                                                 marginBottom: '5px',
                                                 fontWeight: 'bold'
                                             }}>
-                                                {isAdmin ? '👨‍💼' : '👤'} {getSenderName(message)}
+                                                {(() => {
+                                                    const sender = getSenderInfo(message);
+                                                    return (
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                            <img
+                                                                src={`http://147.93.53.128:8888/uploads/MemberImages/${sender.image}`}
+                                                                alt={sender.name}
+                                                                style={{
+                                                                    width: '28px',
+                                                                    height: '28px',
+                                                                    borderRadius: '50%',
+                                                                    objectFit: 'cover',
+                                                                    border: '1px solid #ccc'
+                                                                }}
+                                                            />
+                                                            <span style={{ color: isMyMessage ? '#1c1c1c' : '#ffffff' }}>{sender.name}</span>
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
+
                                             <div style={{
                                                 fontSize: '1rem',
                                                 marginBottom: '5px',
@@ -378,6 +431,7 @@ const GroupDetails = () => {
                                             }}>
                                                 {message.content}
                                             </div>
+
                                             <div style={{
                                                 fontSize: '0.75rem',
                                                 opacity: 0.7,
@@ -386,6 +440,7 @@ const GroupDetails = () => {
                                                 {formatTime(message.timestamp)}
                                             </div>
                                         </div>
+
                                     </div>
                                 );
                             })
