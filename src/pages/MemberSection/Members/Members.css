@@ -42,6 +42,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
+  
 }
 
 .fl-table {
@@ -49,18 +50,19 @@
   border-collapse: collapse;
   background: white;
   font-size: 14px;
+  text-align: center;
 }
 
 .fl-table thead tr {
   background: linear-gradient(135deg, #D4AF37 0%, #705600 100%);
   color: white;
-  text-align: right;
+  /* text-align: right; */
 }
 
 .fl-table th,
 .fl-table td {
   padding: 12px 15px;
-  text-align: right;
+  /* text-align: right; */
   border-bottom: 1px solid #ddd;
 }
 

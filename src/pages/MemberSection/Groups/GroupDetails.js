@@ -208,7 +208,8 @@ const GroupDetails = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#e74c3c',
-                fontSize: '1.5rem'
+                fontSize: '1.5rem' ,
+                
             }}>
                 الجروب غير موجود
             </div>
@@ -219,14 +220,16 @@ const GroupDetails = () => {
         <div style={{
             minHeight: '100vh',
             background: 'linear-gradient(135deg, #1c1c1c 0%, #2a2a2a 100%)',
-            fontFamily: 'Arial, sans-serif'
+            fontFamily: 'Arial, sans-serif',
+            borderRadius : '30px'
         }}>
             {/* Header */}
             <div style={{
                 background: 'rgba(28, 28, 28, 0.95)',
                 borderBottom: '2px solid #D4AF37',
                 padding: '20px',
-                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
+                borderRadius : '30px'
             }}>
                 <div style={{
                     maxWidth: '1200px',
@@ -292,7 +295,7 @@ const GroupDetails = () => {
                     flex: 1,
                     padding: '20px',
                     overflowY: 'auto',
-                    background: 'rgba(28, 28, 28, 0.3)'
+                    background: 'rgba(114, 112, 112, 0.3)'
                 }}>
 
                     {/* Members List */}
