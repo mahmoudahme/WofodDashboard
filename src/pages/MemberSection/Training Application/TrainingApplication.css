@@ -77,7 +77,6 @@ p {
     background: #cc0000;
 }
 
-/* ✅ استجابة للجوال */
 @media (max-width: 600px) {
     .applications-list {
         grid-template-columns: 1fr;
