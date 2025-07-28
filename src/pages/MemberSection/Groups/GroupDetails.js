@@ -40,13 +40,16 @@ const GroupDetails = () => {
             console.log('رسالة جديدة:', data);
             if (data.groupId === groupId) {
                 setMessages(prev => [...prev, {
-                    sender: data.sender,
+                    sender: data.sender?._id,
                     senderModel: data.senderModel,
                     content: data.content,
-                    timestamp: data.timestamp
+                    timestamp: data.timestamp,
+                    senderName: data.sender?.name,
+                    senderImage: data.sender?.image
                 }]);
             }
         });
+
 
         newSocket.on('errorMessage', (error) => {
             setError(error);
@@ -56,45 +59,18 @@ const GroupDetails = () => {
         setSocket(newSocket);
 
         return () => {
+            if (newSocket.connected) {
+                newSocket.emit('leaveGroup', groupId);
+                console.log(`🛑 خرجنا من الجروب ${groupId}`);
+            }
             newSocket.disconnect();
         };
+
     }, [groupId, accessToken]);
 
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
-
-    // const initializeSocket = () => {
-    //     const newSocket = io("http://147.93.53.128:8888", {
-    //         auth: {
-    //             token: accessToken
-    //         }
-    //     });
-
-    //     newSocket.on('connect', () => {
-    //         console.log('متصل بالسيرفر');
-    //         newSocket.emit('joinGroup', groupId);
-    //     });
-
-    //     newSocket.on('newMessageFromGroup', (data) => {
-    //         console.log('رسالة جديدة:', data);
-    //         if (data.groupId === groupId) {
-    //             setMessages(prev => [...prev, {
-    //                 sender: data.sender,
-    //                 senderModel: data.senderModel,
-    //                 content: data.content,
-    //                 timestamp: data.timestamp
-    //             }]);
-    //         }
-    //     });
-
-    //     newSocket.on('errorMessage', (error) => {
-    //         setError(error);
-    //         setTimeout(() => setError(""), 3000);
-    //     });
-
-    //     setSocket(newSocket);
-    // };
 
     const fetchGroupDetails = async () => {
         try {
@@ -135,8 +111,8 @@ const GroupDetails = () => {
             e.preventDefault();
             sendMessage();
             const token = localStorage.getItem("accessToken");
-            group.members.map(async(member) => {
-                await axios.post("http://147.93.53.128:8888/admin/send-group/", {groupName: group.name, memberId: member._id, messageFromAdmin: newMessage.trim()},
+            group.members.map(async (member) => {
+                await axios.post("http://147.93.53.128:8888/admin/send-group/", { groupName: group.name, memberId: member._id, messageFromAdmin: newMessage.trim() },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -168,19 +144,29 @@ const GroupDetails = () => {
     };
 
     const getSenderInfo = (message) => {
+        if (message.senderName && message.senderImage) {
+            return {
+                name: message.senderName,
+                image: message.senderImage
+            };
+        }
+
+        // Backup plan using group info
         if (message.senderModel === 'Admin') {
             return {
                 name: group?.admin?.name || 'المدير',
-                image: group?.admin?.image || '/default-admin.png'  // ضع صورة افتراضية إذا مفيش صورة
+                image: group?.admin?.image || '/default-admin.png'
             };
         }
 
         const member = group?.members?.find(m => m._id === message.sender);
         return {
             name: member?.name || 'عضو',
-            image: member?.image || '/default-member.png'  // صورة افتراضية للعضو
+            image: member?.image || '/default-member.png'
         };
     };
+
+
 
 
     if (loading) {
@@ -208,8 +194,8 @@ const GroupDetails = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#e74c3c',
-                fontSize: '1.5rem' ,
-                
+                fontSize: '1.5rem',
+
             }}>
                 الجروب غير موجود
             </div>
@@ -221,7 +207,7 @@ const GroupDetails = () => {
             minHeight: '100vh',
             background: 'linear-gradient(135deg, #1c1c1c 0%, #2a2a2a 100%)',
             fontFamily: 'Arial, sans-serif',
-            borderRadius : '30px'
+            borderRadius: '30px'
         }}>
             {/* Header */}
             <div style={{
@@ -229,7 +215,7 @@ const GroupDetails = () => {
                 borderBottom: '2px solid #D4AF37',
                 padding: '20px',
                 boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-                borderRadius : '30px'
+                borderRadius: '30px'
             }}>
                 <div style={{
                     maxWidth: '1200px',
